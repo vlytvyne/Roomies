@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import vl.roomies.R
 import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
 import vl.roomies.databinding.ActivityLogInBinding
 import vl.roomies.ui.HomeActivity
 import vl.roomies.ui.sign_up.SignUpActivity
+import vl.roomies.utils.hideKeyboard
 
 class LogInActivity : AppCompatActivity() {
 
@@ -24,18 +26,20 @@ class LogInActivity : AppCompatActivity() {
 		viewmodel = LogInVM.create(this)
 		binding.viewmodel = viewmodel
 		setupVMObserver()
-
-		if (firebaseAuth.currentUser != null) {
-			Log.d("TAGG", firebaseAuth.currentUser!!.displayName)
-		}
 	}
 
 	private fun setupVMObserver() {
-		viewmodel.startSignUp.observe(this, Observer {
+		viewmodel.startSignUpAction.observe(this, Observer {
 			SignUpActivity.start(this)
 		})
 		viewmodel.logInAction.observe(this, Observer {
 			HomeActivity.start(this)
+		})
+		viewmodel.hideKeyboardAction.observe(this, Observer {
+			hideKeyboard(this)
+		})
+		viewmodel.snackError.observe(this, Observer {
+			Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
 		})
 	}
 

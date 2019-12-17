@@ -1,25 +1,36 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/purple</item>
-        <item name="colorPrimaryDark">@color/purple</item>
-        <item name="colorAccent">@color/purple</item>
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/purple</item>
+		<item name="colorPrimaryDark">@color/purple</item>
+		<item name="colorAccent">@color/purple</item>
 
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowBackground">@drawable/app_background</item>
-        <item name="materialButtonStyle">@style/AppTheme.Button</item>
-        <item name="android:fitsSystemWindows">true</item>
-    </style>
+		<item name="android:windowTranslucentStatus">true</item>
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:windowBackground">@drawable/app_background</item>
+		<item name="materialButtonStyle">@style/AppTheme.Button</item>
+		<item name="android:fitsSystemWindows">true</item>
+		<item name="snackbarStyle">@style/AppTheme.SnackBar</item>
+		<item name="snackbarTextViewStyle">@style/AppTheme.SnackBarText</item>
+	</style>
 
-    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">@color/purple</item>
-        <item name="rippleColor">@android:color/white</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="cornerRadius">20dp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
+	<style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
+		<item name="android:backgroundTint">@color/purple</item>
+		<item name="rippleColor">@android:color/white</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="cornerRadius">@dimen/btn_corners_radius</item>
+		<item name="android:textColor">@android:color/white</item>
+	</style>
+
+	<style name="AppTheme.SnackBar" parent="Widget.MaterialComponents.Snackbar">
+		<item name="android:background">@drawable/snackbar</item>
+	</style>
+
+	<style name="AppTheme.SnackBarText" parent="@style/Widget.MaterialComponents.Snackbar.TextView">
+		<item name="android:textColor">@android:color/white</item>
+	</style>
 
 
 </resources>

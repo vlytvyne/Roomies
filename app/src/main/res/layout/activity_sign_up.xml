@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/amaranth"
-            android:text="Sign Up"
+            android:text="@string/label_sign_up"
             android:textColor="@android:color/white"
             android:textSize="72dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -42,6 +42,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
+                app:errorStrRes="@{viewmodel.emailError}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -52,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#56948D8D"
-                    android:hint="Email"
+                    android:hint="@string/hint_email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:text="@={viewmodel.email}" />
@@ -60,6 +61,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:errorStrRes="@{viewmodel.passwordError}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -71,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="#56948D8D"
-                    android:hint="Password"
+                    android:hint="@string/hint_password"
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"
                     android:text="@={viewmodel.password}" />
@@ -79,6 +81,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:errorStrRes="@{viewmodel.nameError}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -90,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#56948D8D"
-                    android:hint="Name"
+                    android:hint="@string/hint_name"
                     android:imeOptions="actionDone"
                     android:inputType="textPersonName"
                     android:text="@={viewmodel.name}" />
@@ -107,7 +110,7 @@
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@android:color/black"
                 android:onClick="@{() -> viewmodel.onSignUpClick()}"
-                android:text="Sign up"
+                android:text="@string/btn_sign_up"
                 android:textSize="16dp" />
 
         </LinearLayout>

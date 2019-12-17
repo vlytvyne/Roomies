@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="snackbar_corners_radius">32dp</dimen>
+	<dimen name="btn_corners_radius">16dp</dimen>
+</resources>
