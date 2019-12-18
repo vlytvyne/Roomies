@@ -3,14 +3,12 @@ package vl.roomies.ui.log_in
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import vl.roomies.R
-import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
 import vl.roomies.databinding.ActivityLogInBinding
-import vl.roomies.ui.HomeActivity
+import vl.roomies.ui.home.HomeActivity
 import vl.roomies.ui.sign_up.SignUpActivity
 import vl.roomies.utils.hideKeyboard
 

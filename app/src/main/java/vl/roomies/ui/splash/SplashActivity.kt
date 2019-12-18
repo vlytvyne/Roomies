@@ -4,9 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import vl.roomies.R
 import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
-import vl.roomies.ui.HomeActivity
+import vl.roomies.ui.home.HomeActivity
 import vl.roomies.ui.log_in.LogInActivity
-import vl.roomies.ui.sign_up.SignUpActivity
 
 class SplashActivity : AppCompatActivity() {
 

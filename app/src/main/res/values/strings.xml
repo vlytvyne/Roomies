@@ -17,4 +17,8 @@
 	<string name="error_email_already_used">Email already used</string>
 	<string name="error_wrong_password">Wrong password</string>
 	<string name="error_too_many_requests_try_later">Too many request try later</string>
+	<string name="label_purchases">Purchases</string>
+	<string name="label_fridge">Fridge</string>
+	<string name="label_profile">Profile</string>
+
 </resources>

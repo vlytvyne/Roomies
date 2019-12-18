@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import vl.roomies.R
 import vl.roomies.databinding.ActivitySignUpBinding
-import vl.roomies.ui.HomeActivity
+import vl.roomies.ui.home.HomeActivity
 import vl.roomies.utils.hideKeyboard
 
 class SignUpActivity : AppCompatActivity() {
