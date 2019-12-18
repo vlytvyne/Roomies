@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 import vl.roomies.R
+import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
 
 class ProfileFragment : Fragment() {
 
@@ -21,6 +22,12 @@ class ProfileFragment : Fragment() {
 
 	private fun setupToolbar() {
 		toolbar.title = getString(R.string.label_profile)
+		toolbar.inflateMenu(R.menu.log_out)
+		toolbar.menu.findItem(R.id.toolbar_log_out).setOnMenuItemClickListener {
+			firebaseAuth.signOut()
+			activity!!.finishAffinity()
+			true
+		}
 	}
 
 	companion object {

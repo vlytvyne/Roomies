@@ -82,6 +82,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                app:cornerRadius="24dp"
                 android:id="@+id/button3"
                 android:layout_width="240dp"
                 android:layout_height="64dp"
@@ -93,7 +94,8 @@
                 android:text="@string/btn_log_in"
                 android:textSize="16dp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                app:cornerRadius="24dp"
                 android:id="@+id/button2"
                 android:layout_width="240dp"
                 android:layout_height="64dp"
