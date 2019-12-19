@@ -18,6 +18,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 		setContentView(R.layout.activity_home)
 
 		bottomNavigation.setOnNavigationItemSelectedListener(this)
+		bottomNavigation.selectedItemId = R.id.bottom_nav_profile
 	}
 
 	override fun onBackPressed() {

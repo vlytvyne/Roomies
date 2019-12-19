@@ -1,19 +1,50 @@
 package vl.roomies.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 import vl.roomies.R
-import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
+import vl.roomies.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
+	private lateinit var binding: FragmentProfileBinding
+	private lateinit var viewmodel: ProfileVM
+
+	private val logOutConfirmation: MaterialAlertDialogBuilder by lazy {
+		MaterialAlertDialogBuilder(context)
+			.setTitle("Are you sure you want to log out?")
+			.setPositiveButton("Log out") { _, _ ->
+				viewmodel.logOut()
+			}
+			.setNegativeButton("Cancel") { _, _ -> }
+	}
+
+	override fun onAttach(context: Context) {
+		super.onAttach(context)
+		viewmodel = ProfileVM.create()
+		setupVMObservers()
+	}
+
+	private fun setupVMObservers() {
+		viewmodel.closeWindow.observe(this, Observer {
+			activity!!.finishAffinity()
+		})
+	}
+
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_profile, container, false)
+		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+		binding.lifecycleOwner = this
+		binding.viewmodel = viewmodel
+		return binding.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,8 +55,7 @@ class ProfileFragment : Fragment() {
 		toolbar.title = getString(R.string.label_profile)
 		toolbar.inflateMenu(R.menu.log_out)
 		toolbar.menu.findItem(R.id.toolbar_log_out).setOnMenuItemClickListener {
-			firebaseAuth.signOut()
-			activity!!.finishAffinity()
+			logOutConfirmation.show()
 			true
 		}
 	}
