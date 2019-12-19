@@ -4,14 +4,11 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.UserProfileChangeRequest
-import timber.log.Timber
 import vl.roomies.R
-import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
-import vl.roomies.data.IntegerConstants
+import vl.roomies.data.constants.IntegerConstants
+import vl.roomies.data.models.User
+import vl.roomies.data.source.FirebaseRepository
 import vl.roomies.ui.common.MutableActionLiveData
 import vl.roomies.ui.common.fire
 import vl.roomies.utils.TextInputValidator
@@ -60,16 +57,18 @@ class SignUpVM: BasicVM() {
 
 	private fun signUp() {
 		startLoading()
-		firebaseAuth.createUserWithEmailAndPassword(email.value!!, password.value!!)
-			.addOnCompleteListener { stopLoading() }
+		FirebaseRepository.signUp(email.value!!, password.value!!)
 			.addOnSuccessListener { attachNameToUser() }
-			.addOnFailureListener { handleSignUpException(it) }
+			.addOnFailureListener {
+				stopLoading()
+				handleSignUpException(it)
+			}
 	}
 
 	private fun attachNameToUser() {
-		val user = firebaseAuth.currentUser!!
-		val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(name.value!!).build()
-		user.updateProfile(profileUpdates)
+		val user = User(name = name.value!!,
+						email = email.value!!)
+		FirebaseRepository.updateUserInfo(user)
 			.addOnSuccessListener { logInAction.fire() }
 			.addOnFailureListener { handleAttachNameToUserException(it) }
 	}

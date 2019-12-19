@@ -3,7 +3,7 @@ package vl.roomies.ui.splash
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import vl.roomies.R
-import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
+import vl.roomies.data.source.FirebaseRepository
 import vl.roomies.ui.home.HomeActivity
 import vl.roomies.ui.log_in.LogInActivity
 
@@ -13,10 +13,10 @@ class SplashActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_splash)
 
-		if (firebaseAuth.currentUser == null) {
-			LogInActivity.start(this)
-		} else {
+		if (FirebaseRepository.isUserLoggedIn()) {
 			HomeActivity.start(this)
+		} else {
+			LogInActivity.start(this)
 		}
 	}
 }

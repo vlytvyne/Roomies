@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="vl.roomies">
+	xmlns:tools="http://schemas.android.com/tools"
+	package="vl.roomies">
 
-    <application
-        android:name=".app.RoomiesApp"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.home.HomeActivity"/>
-        <activity
-            android:name=".ui.splash.SplashActivity"
-            android:noHistory="true"
-	        android:theme="@style/AppTheme.TransparentStatusBar"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+	<application
+		android:name=".app.RoomiesApp"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:roundIcon="@mipmap/ic_launcher_round"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme"
+		tools:ignore="GoogleAppIndexingWarning">
+		<activity android:name=".ui.profile.change_name.ChangeNameActivity"></activity>
+		<activity android:name=".ui.home.HomeActivity" />
+		<activity
+			android:name=".ui.splash.SplashActivity"
+			android:noHistory="true"
+			android:theme="@style/AppTheme.TransparentStatusBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.sign_up.SignUpActivity"
-            android:windowSoftInputMode="adjustResize"
-	        android:theme="@style/AppTheme.TransparentStatusBar"/>
-        <activity
-            android:name=".ui.log_in.LogInActivity"
-            android:windowSoftInputMode="adjustResize"
-	        android:theme="@style/AppTheme.TransparentStatusBar"/>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".ui.sign_up.SignUpActivity"
+			android:theme="@style/AppTheme.TransparentStatusBar"
+			android:windowSoftInputMode="adjustResize" />
+		<activity
+			android:name=".ui.log_in.LogInActivity"
+			android:theme="@style/AppTheme.TransparentStatusBar"
+			android:windowSoftInputMode="adjustResize" />
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-    </application>
+		<meta-data
+			android:name="preloaded_fonts"
+			android:resource="@array/preloaded_fonts" />
+	</application>
 
 </manifest>

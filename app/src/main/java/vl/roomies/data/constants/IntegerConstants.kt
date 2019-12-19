@@ -1,4 +1,4 @@
-package vl.roomies.data
+package vl.roomies.data.constants
 
 import vl.roomies.R
 import vl.roomies.app.RoomiesApp.Companion.appContext

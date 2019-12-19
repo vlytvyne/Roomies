@@ -24,11 +24,11 @@
 			app:layout_constraintTop_toTopOf="parent" />
 
 		<com.google.android.material.card.MaterialCardView
+			style="@style/AppTheme.SurfaceCard"
 			android:id="@+id/materialCardView"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
-			app:cardCornerRadius="0dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -82,8 +82,8 @@
 					app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 				<com.google.android.material.button.MaterialButton
+					android:onClick="@{() -> viewmodel.onChangeNameClick()}"
 					android:id="@+id/button"
-
 					style="@style/AppTheme.FlatButton"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -95,10 +95,10 @@
 		</com.google.android.material.card.MaterialCardView>
 
 		<com.google.android.material.card.MaterialCardView
+			style="@style/AppTheme.SurfaceCard"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
-			app:cardCornerRadius="0dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/materialCardView">

@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import vl.roomies.R
+import vl.roomies.data.models.User
+import vl.roomies.data.source.FirebaseRepository
+import vl.roomies.data.source.currentUser
 import vl.roomies.ui.profile.ProfileFragment
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -19,6 +21,11 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
 		bottomNavigation.setOnNavigationItemSelectedListener(this)
 		bottomNavigation.selectedItemId = R.id.bottom_nav_profile
+
+		FirebaseRepository.getCurrentUserInfo()
+			.addOnSuccessListener {
+				currentUser = it.toObject(User::class.java) as User
+			}
 	}
 
 	override fun onBackPressed() {

@@ -9,14 +9,12 @@ class RoomiesApp: Application() {
 
 	override fun onCreate() {
 		super.onCreate()
-		firebaseAuth = FirebaseAuth.getInstance()
 		appContext = applicationContext
 		Timber.plant(Timber.DebugTree())
 	}
 
 	companion object {
 
-		lateinit var firebaseAuth: FirebaseAuth
 		lateinit var appContext: Context
 	}
 }

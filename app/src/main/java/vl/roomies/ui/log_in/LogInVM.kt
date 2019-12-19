@@ -4,15 +4,13 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
-import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import timber.log.Timber
 import vl.roomies.R
-import vl.roomies.app.RoomiesApp.Companion.firebaseAuth
-import vl.roomies.data.IntegerConstants
+import vl.roomies.data.constants.IntegerConstants
+import vl.roomies.data.source.FirebaseRepository
 import vl.roomies.ui.common.MutableActionLiveData
 import vl.roomies.ui.common.fire
 import vl.roomies.utils.TextInputValidator
@@ -59,7 +57,7 @@ class LogInVM: BasicVM() {
 
 	private fun startLogIn() {
 		startLoading()
-		firebaseAuth.signInWithEmailAndPassword(email.value!!, password.value!!)
+		FirebaseRepository.logIn(email.value!!, password.value!!)
 			.addOnCompleteListener { stopLoading() }
 			.addOnSuccessListener { logInAction.fire() }
 			.addOnFailureListener { handleLogInException(it) }

@@ -1,7 +1,7 @@
 <resources>
 
 	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+	<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 		<!-- Customize your theme here. -->
 		<item name="colorPrimary">@color/purple</item>
 		<item name="colorPrimaryDark">@color/purple</item>
@@ -18,6 +18,7 @@
 		<item name="android:textColor">@android:color/black</item>
 		<item name="colorControlHighlight">@color/purple</item>
 		<item name="materialAlertDialogTheme">@style/AppTheme.Dialog</item>
+		<item name="actionMenuTextColor">@color/purple</item>
 	</style>
 
 	<style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
@@ -73,5 +74,16 @@
 		<item name="android:background">@android:color/white</item>
 		<item name="android:buttonStyle">@style/AppTheme.FlatButton</item>
 	</style>
+
+	<style name="AppTheme.SurfaceCard" parent="AppTheme.Card">
+		<item name="cardCornerRadius">0dp</item>
+	</style>
+
+<!--	<style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">-->
+<!--		<item name="boxBackgroundColor">@android:color/transparent</item>-->
+<!--		<item name="hintTextColor">@android:color/holo_green_dark</item>-->
+<!--		<item name="android:textColorHint">@android:color/holo_green_dark</item>-->
+<!--		<item name="colorOnSurface">@android:color/holo_orange_dark</item>-->
+<!--	</style>-->
 
 </resources>

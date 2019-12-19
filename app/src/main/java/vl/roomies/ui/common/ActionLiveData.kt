@@ -18,7 +18,7 @@ open class ActionLiveData<T> : LiveData<T>() {
 				observer.onChanged(data)
 				value = null
 			}
-			// We set the value to null straight after emitting the change to the observer
+			// We set the value to null straight after emitting the save to the observer
 			// This means that the state of the data will always be null / non existent
 			// It will only be available to the observer in its callback and since we do not emit null values
 			// the observer never receives a null value and any observers resuming do not receive the last event.
