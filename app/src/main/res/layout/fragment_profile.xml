@@ -44,7 +44,7 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="8dp"
-					android:text="Email"
+					android:text="@string/label_email"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,29 +55,29 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="8dp"
-					android:text="Name"
+					android:text="@string/label_name"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 				<TextView
+					android:text="@{viewmodel.email}"
 					android:id="@+id/textView3"
 					style="@style/AppTheme.TextValue"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="4dp"
-					android:text="v.lytvynets61@gmail.com"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 				<TextView
+					android:text="@{viewmodel.name}"
 					android:id="@+id/textView5"
 					style="@style/AppTheme.TextValue"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="4dp"
-					android:text="Вадим"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -88,7 +88,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginEnd="16dp"
-					android:text="Change name"
+					android:text="@string/btn_change_name"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView5" />
 			</androidx.constraintlayout.widget.ConstraintLayout>
@@ -114,17 +114,17 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="8dp"
-					android:text="Card number"
+					android:text="@string/btn_card_number"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent" />
 
 				<TextView
+					android:text="@{viewmodel.cardNumber}"
 					android:id="@+id/textView8"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="4dp"
-					android:text="9043 9403 4345 5351"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -135,27 +135,28 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="8dp"
-					android:text="Bank app link"
+					android:text="@string/btn_bank_app_link"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 				<TextView
+					android:text="@{viewmodel.bankLink}"
 					android:id="@+id/textView10"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="4dp"
-					android:text="https://mono/send"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 				<com.google.android.material.button.MaterialButton
+					android:onClick="@{() -> viewmodel.onChangeBankDetailsClick()}"
 					android:id="@+id/button4"
 					style="@style/AppTheme.FlatButton"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginEnd="16dp"
-					android:text="Change bank details"
+					android:text="@string/btn_change_bank_details"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView10" />
 			</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,15 +2,30 @@
 	<string name="app_name">Roomies</string>
 
 	<string name="label_sign_up">Sign Up</string>
+	<string name="label_email">Email</string>
+	<string name="label_name">Name</string>
+	<string name="label_purchases">Purchases</string>
+	<string name="label_fridge">Fridge</string>
+	<string name="label_profile">Profile</string>
+	<string name="label_log_out">Log out</string>
+	<string name="label_change_name">Change name</string>
 
 	<string name="hint_email">Email</string>
 	<string name="hint_password">Password</string>
 	<string name="hint_name">Name</string>
+	<string name="hint_card_number">Card Number</string>
+	<string name="hint_bank_app_link">Bank app link</string>
+	<string name="hint_new_name">New name</string>
 
 	<string name="btn_sign_up">Sign up</string>
 	<string name="btn_log_in">Log in</string>
 	<string name="btn_log_out">Log out</string>
 	<string name="btn_cancel">Cancel</string>
+	<string name="btn_change_name">Change name</string>
+	<string name="btn_card_number">Card number</string>
+	<string name="btn_bank_app_link">Bank app link</string>
+	<string name="btn_change_bank_details">Change bank details</string>
+	<string name="btn_save">Save</string>
 
 	<string name="error_field_cant_be_blank">Field can\'t be blank</string>
 	<string name="error_too_long">Too long</string>
@@ -20,12 +35,9 @@
 	<string name="error_wrong_password">Wrong password</string>
 	<string name="error_too_many_requests_try_later">Too many request try later</string>
 	<string name="error_unknown">Unknown error</string>
-	<string name="label_purchases">Purchases</string>
-	<string name="label_fridge">Fridge</string>
-	<string name="label_profile">Profile</string>
-	<string name="label_log_out">Log out</string>
-	<string name="btn_save">Save</string>
-	<string name="label_change_name">Change name</string>
+
 	<string name="confirmation_log_out">Are you sure you want to log out?</string>
+
+	<string name="placeholder_not_set">Not set</string>
 
 </resources>

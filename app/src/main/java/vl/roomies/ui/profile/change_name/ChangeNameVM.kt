@@ -14,7 +14,7 @@ class ChangeNameVM: BasicVM() {
 	//@2way db
 	val newName = MutableLiveData<String>(currentUser.name)
 
-	private val newNameError = MutableLiveData<@StringRes Int?>()
+	val newNameError = MutableLiveData<@StringRes Int?>()
 
 	private val newNameValidator = TextInputValidator(newName, newNameError)
 
@@ -29,7 +29,6 @@ class ChangeNameVM: BasicVM() {
 
 	fun onSaveClick() {
 		if (newNameValidator.isValid) {
-			hideKeyboard()
 			saveNewName()
 		}
 	}

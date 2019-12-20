@@ -43,6 +43,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:hint="@string/hint_email"
                 app:errorStrRes="@{viewmodel.emailError}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#56948D8D"
-                    android:hint="@string/hint_email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:text="@={viewmodel.email}" />
@@ -63,6 +63,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:hint="@string/hint_password"
                 app:errorStrRes="@{viewmodel.passwordError}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +77,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#56948D8D"
-                    android:hint="@string/hint_password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:text="@={viewmodel.password}" />

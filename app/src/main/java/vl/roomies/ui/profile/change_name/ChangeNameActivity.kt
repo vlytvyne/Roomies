@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_change_name.*
 import kotlinx.android.synthetic.main.fragment_profile.toolbar
 import vl.roomies.R
@@ -25,12 +26,15 @@ class ChangeNameActivity : AppCompatActivity() {
 
 		setupVMObservers()
 		setupToolbar()
-		etNewName.requestFocus()
+		etCardNumber.requestFocus()
 	}
 
 	private fun setupVMObservers() {
 		viewmodel.closeWindow.observe(this, Observer {
 			finish()
+		})
+		viewmodel.snackError.observe(this, Observer {
+			Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
 		})
 	}
 

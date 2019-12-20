@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 import vl.roomies.R
 import vl.roomies.databinding.FragmentProfileBinding
+import vl.roomies.ui.profile.change_bank_details.ChangeBankDetailsActivity
 import vl.roomies.ui.profile.change_name.ChangeNameActivity
 
 class ProfileFragment : Fragment() {
@@ -40,6 +41,9 @@ class ProfileFragment : Fragment() {
 		viewmodel.changeNameAction.observe(this, Observer {
 			ChangeNameActivity.start(activity!!)
 		})
+		viewmodel.changeBankDetailsAction.observe(this, Observer {
+			ChangeBankDetailsActivity.start(activity!!)
+		})
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,6 +55,11 @@ class ProfileFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		setupToolbar()
+	}
+
+	override fun onResume() {
+		super.onResume()
+		viewmodel.resetInfo()
 	}
 
 	private fun setupToolbar() {

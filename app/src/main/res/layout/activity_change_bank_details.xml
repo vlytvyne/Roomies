@@ -6,13 +6,13 @@
 	<data>
 		<variable
 			name="viewmodel"
-			type="vl.roomies.ui.profile.change_name.ChangeNameVM" />
+			type="vl.roomies.ui.profile.change_bank_details.ChangeBankDetailsVM" />
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context=".ui.profile.change_name.ChangeNameActivity">
+		tools:context=".ui.profile.change_bank_details.ChangeBankDetailsActivity">
 
 		<com.google.android.material.appbar.MaterialToolbar
 			android:id="@+id/toolbar"
@@ -36,9 +36,33 @@
 				android:layout_height="match_parent">
 
 				<com.google.android.material.textfield.TextInputLayout
-					app:endIconMode="clear_text"
-					android:hint="@string/hint_new_name"
-					app:errorStrRes="@{viewmodel.newNameError}"
+					android:id="@+id/tilCardNumber"
+					android:hint="@string/hint_card_number"
+					app:endIconMode="custom"
+					app:endIconDrawable="@drawable/ic_paste"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginEnd="16dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/etCardNumber"
+						android:text="@={viewmodel.cardNumber}"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/text_input_background"
+						android:enabled="@{viewmodel.isInputEnabled}" />
+				</com.google.android.material.textfield.TextInputLayout>
+
+				<com.google.android.material.textfield.TextInputLayout
+					android:id="@+id/tilBankLink"
+					android:hint="@string/hint_bank_app_link"
+					app:endIconMode="custom"
+					app:endIconDrawable="@drawable/ic_paste"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
@@ -48,15 +72,15 @@
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent">
+					app:layout_constraintTop_toBottomOf="@+id/tilCardNumber">
 
 					<com.google.android.material.textfield.TextInputEditText
-						android:id="@+id/etCardNumber"
+						android:enabled="@{viewmodel.isInputEnabled}"
+						android:id="@+id/etBankLink"
+						android:text="@={viewmodel.bankLink}"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:background="@drawable/text_input_background"
-						android:enabled="@{viewmodel.isInputEnabled}"
-						android:text="@={viewmodel.newName}" />
+						android:background="@drawable/text_input_background" />
 				</com.google.android.material.textfield.TextInputLayout>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
@@ -73,7 +97,6 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent" />
-
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
