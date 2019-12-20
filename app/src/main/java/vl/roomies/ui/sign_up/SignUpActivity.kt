@@ -6,9 +6,10 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import vl.roomies.R
 import vl.roomies.databinding.ActivitySignUpBinding
-import vl.roomies.ui.home.HomeActivity
+import vl.roomies.ui.splash.SplashActivity
 import vl.roomies.utils.hideKeyboard
 
 class SignUpActivity : AppCompatActivity() {
@@ -27,13 +28,13 @@ class SignUpActivity : AppCompatActivity() {
 
 	private fun setupVMObserver() {
 		viewmodel.logInAction.observe(this, Observer {
-			HomeActivity.start(this)
+			SplashActivity.start(this)
 		})
 		viewmodel.hideKeyboardAction.observe(this, Observer {
 			hideKeyboard(this)
 		})
 		viewmodel.snackError.observe(this, Observer {
-			Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
+			Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
 		})
 	}
 

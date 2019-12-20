@@ -1,5 +1,6 @@
 package com.floctopus.ui.common
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import vl.roomies.ui.common.ActionLiveData
@@ -24,6 +25,12 @@ open class BasicVM : DisposableSaveVM() {
 	private val _closeWindow = MutableActionLiveData<Unit>()
 	val closeWindow: ActionLiveData<Unit> = _closeWindow
 
+	private val _isInputEnabled = MutableLiveData<Boolean>(true)
+	val isInputEnabled: LiveData<Boolean> = _isInputEnabled
+
+	private val _snackError = MutableActionLiveData<@StringRes Int>()
+	val snackError: ActionLiveData<Int> = _snackError
+
 	fun startLoading() {
 		_isLoading.value = true
 	}
@@ -46,5 +53,17 @@ open class BasicVM : DisposableSaveVM() {
 
 	fun closeWindow() {
 		_closeWindow.fire()
+	}
+
+	fun disableInput() {
+		_isInputEnabled.value = false
+	}
+
+	fun enableInput() {
+		_isInputEnabled.value = true
+	}
+
+	fun showSnackError(error: Int) {
+		_snackError.fire(error)
 	}
 }

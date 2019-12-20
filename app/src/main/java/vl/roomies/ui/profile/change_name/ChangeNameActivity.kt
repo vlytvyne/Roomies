@@ -2,24 +2,36 @@ package vl.roomies.ui.profile.change_name
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_change_name.*
 import kotlinx.android.synthetic.main.fragment_profile.toolbar
 import vl.roomies.R
-import vl.roomies.data.constants.NEW_NAME_KEY
-import vl.roomies.data.source.currentUser
+import vl.roomies.databinding.ActivityChangeNameBinding
 
 class ChangeNameActivity : AppCompatActivity() {
 
+	private lateinit var binding: ActivityChangeNameBinding
+	private lateinit var viewmodel: ChangeNameVM
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_change_name)
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_change_name)
+		binding.lifecycleOwner = this
+		viewmodel = ChangeNameVM.create(this)
+		binding.viewmodel = viewmodel
 
+		setupVMObservers()
 		setupToolbar()
+		etNewName.requestFocus()
+	}
 
-		etNewName.setText(currentUser.name)
+	private fun setupVMObservers() {
+		viewmodel.closeWindow.observe(this, Observer {
+			finish()
+		})
 	}
 
 	private fun setupToolbar() {
@@ -28,17 +40,16 @@ class ChangeNameActivity : AppCompatActivity() {
 		toolbar.setNavigationOnClickListener { finish() }
 		toolbar.inflateMenu(R.menu.save)
 		toolbar.menu.findItem(R.id.toolbar_save).setOnMenuItemClickListener {
-			setResult(Activity.RESULT_OK, Intent().putExtra(NEW_NAME_KEY, etNewName.text))
-			finish()
+			viewmodel.onSaveClick()
 			true
 		}
 	}
 
 	companion object {
 
-		fun startForResult(fragment: Fragment, requestCode: Int) {
-			val intent = Intent(fragment.activity!!, ChangeNameActivity::class.java)
-			fragment.startActivityForResult(intent, requestCode)
+		fun start(activity: Activity) {
+			val intent = Intent(activity, ChangeNameActivity::class.java)
+			activity.startActivity(intent)
 		}
 	}
 }

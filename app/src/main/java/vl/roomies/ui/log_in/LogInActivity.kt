@@ -10,6 +10,7 @@ import vl.roomies.R
 import vl.roomies.databinding.ActivityLogInBinding
 import vl.roomies.ui.home.HomeActivity
 import vl.roomies.ui.sign_up.SignUpActivity
+import vl.roomies.ui.splash.SplashActivity
 import vl.roomies.utils.hideKeyboard
 
 class LogInActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class LogInActivity : AppCompatActivity() {
 			SignUpActivity.start(this)
 		})
 		viewmodel.logInAction.observe(this, Observer {
-			HomeActivity.start(this)
+			SplashActivity.start(this)
 		})
 		viewmodel.hideKeyboardAction.observe(this, Observer {
 			hideKeyboard(this)

@@ -1,5 +1,6 @@
 package vl.roomies.ui.profile
 
+import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
 import vl.roomies.data.source.FirebaseRepository
 import vl.roomies.ui.common.MutableActionLiveData
@@ -20,6 +21,7 @@ class ProfileVM: BasicVM() {
 
 	companion object {
 
-		fun create() = ProfileVM()
+		fun create(fragment: ProfileFragment) =
+			ViewModelProviders.of(fragment)[ProfileVM::class.java]
 	}
 }

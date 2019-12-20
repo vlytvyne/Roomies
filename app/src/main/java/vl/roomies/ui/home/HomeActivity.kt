@@ -21,11 +21,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
 		bottomNavigation.setOnNavigationItemSelectedListener(this)
 		bottomNavigation.selectedItemId = R.id.bottom_nav_profile
-
-		FirebaseRepository.getCurrentUserInfo()
-			.addOnSuccessListener {
-				currentUser = it.toObject(User::class.java) as User
-			}
 	}
 
 	override fun onBackPressed() {

@@ -1,9 +1,9 @@
 package vl.roomies.data.models
 
-data class User(val name: String,
-				val email: String,
-				val cardNumber: String? = null,
-				val bankLink: String? = null) {
+data class User(var name: String,
+				var email: String,
+				var cardNumber: String? = null,
+				var bankLink: String? = null) {
 
 	constructor(): this("", "")
 }

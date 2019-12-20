@@ -14,7 +14,7 @@
 		android:background="@android:color/white"
 		android:elevation="8dp"
 		app:itemIconTint="@drawable/selector_bottom_nav_home"
-		app:itemRippleColor="@color/purple"
+		app:itemRippleColor="@color/indigo_500_light"
 		app:itemTextColor="@drawable/selector_bottom_nav_home"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"

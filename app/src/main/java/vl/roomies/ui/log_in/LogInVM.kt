@@ -26,7 +26,6 @@ class LogInVM: BasicVM() {
 
 	val emailError = MutableLiveData<@StringRes Int?>()
 	val passwordError = MutableLiveData<@StringRes Int?>()
-	val snackError = MutableActionLiveData<@StringRes Int>()
 
 	val logInAction = MutableActionLiveData<Unit>()
 	val startSignUpAction = MutableActionLiveData<Unit>()
@@ -57,8 +56,12 @@ class LogInVM: BasicVM() {
 
 	private fun startLogIn() {
 		startLoading()
+		disableInput()
 		FirebaseRepository.logIn(email.value!!, password.value!!)
-			.addOnCompleteListener { stopLoading() }
+			.addOnCompleteListener {
+				stopLoading()
+				enableInput()
+			}
 			.addOnSuccessListener { logInAction.fire() }
 			.addOnFailureListener { handleLogInException(it) }
 	}
@@ -66,9 +69,10 @@ class LogInVM: BasicVM() {
 	private fun handleLogInException(exception: Exception) {
 		Timber.d(exception)
 		when (exception) {
-			is FirebaseAuthInvalidUserException -> snackError.fire(R.string.error_user_doesnt_exist)
+			is FirebaseAuthInvalidUserException -> showSnackError(R.string.error_user_doesnt_exist)
 			is FirebaseAuthInvalidCredentialsException -> passwordValidator.setError(R.string.error_wrong_password)
-			is FirebaseTooManyRequestsException -> snackError.fire(R.string.error_too_many_requests_try_later)
+			is FirebaseTooManyRequestsException -> showSnackError(R.string.error_too_many_requests_try_later)
+			else -> showSnackError(R.string.error_unknown)
 		}
 	}
 

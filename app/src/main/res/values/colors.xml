@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple">#3F51B5</color>
+    <color name="indigo_500">#3F51B5</color>
+    <color name="indigo_500_light">#757de8</color>
+    <color name="indigo_500_dark">#002984</color>
+    <color name="purple_500">#9c27b0</color>
+    <color name="purple_500_light">#d05ce3</color>
+    <color name="purple_500_dark">#6a0080</color>
     <color name="half_transparent_black">#56948D8D</color>
     <color name="light_grey">#D3D3D3</color>
 </resources>

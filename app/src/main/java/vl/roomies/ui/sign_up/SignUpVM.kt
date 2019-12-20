@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import timber.log.Timber
 import vl.roomies.R
 import vl.roomies.data.constants.IntegerConstants
 import vl.roomies.data.models.User
@@ -26,7 +27,6 @@ class SignUpVM: BasicVM() {
 	val emailError = MutableLiveData<@StringRes Int?>()
 	val passwordError = MutableLiveData<@StringRes Int?>()
 	val nameError = MutableLiveData<@StringRes Int?>()
-	val snackError = MutableActionLiveData<@StringRes Int>()
 
 	val logInAction = MutableActionLiveData<Unit>()
 
@@ -57,9 +57,11 @@ class SignUpVM: BasicVM() {
 
 	private fun signUp() {
 		startLoading()
+		disableInput()
 		FirebaseRepository.signUp(email.value!!, password.value!!)
 			.addOnSuccessListener { attachNameToUser() }
 			.addOnFailureListener {
+				enableInput()
 				stopLoading()
 				handleSignUpException(it)
 			}
@@ -69,17 +71,23 @@ class SignUpVM: BasicVM() {
 		val user = User(name = name.value!!,
 						email = email.value!!)
 		FirebaseRepository.updateUserInfo(user)
+			.addOnCompleteListener {
+				stopLoading()
+				enableInput()
+			}
 			.addOnSuccessListener { logInAction.fire() }
 			.addOnFailureListener { handleAttachNameToUserException(it) }
 	}
 
 	private fun handleSignUpException(exception: Exception) {
 		when(exception) {
-			is FirebaseAuthUserCollisionException -> snackError.fire(R.string.error_email_already_used)
+			is FirebaseAuthUserCollisionException -> showSnackError(R.string.error_email_already_used)
+			else -> showSnackError(R.string.error_unknown)
 		}
 	}
 
 	private fun handleAttachNameToUserException(exception: Exception) {
+		showSnackError(R.string.error_unknown)
 	}
 
 	companion object {

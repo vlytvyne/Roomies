@@ -1,8 +1,6 @@
 package vl.roomies.ui.profile
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,15 +9,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 import vl.roomies.R
-import vl.roomies.data.constants.NEW_NAME_KEY
 import vl.roomies.databinding.FragmentProfileBinding
 import vl.roomies.ui.profile.change_name.ChangeNameActivity
-
-const val RC_CHANGE_NAME = 1
 
 class ProfileFragment : Fragment() {
 
@@ -28,16 +22,14 @@ class ProfileFragment : Fragment() {
 
 	private val logOutConfirmation: MaterialAlertDialogBuilder by lazy {
 		MaterialAlertDialogBuilder(context)
-			.setTitle("Are you sure you want to log out?")
-			.setPositiveButton("Log out") { _, _ ->
-				viewmodel.logOut()
-			}
-			.setNegativeButton("Cancel") { _, _ -> }
+			.setTitle(R.string.confirmation_log_out)
+			.setPositiveButton(R.string.btn_log_out) { _, _ -> viewmodel.logOut() }
+			.setNegativeButton(R.string.btn_cancel) { _, _ -> }
 	}
 
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
-		viewmodel = ProfileVM.create()
+		viewmodel = ProfileVM.create(this)
 		setupVMObservers()
 	}
 
@@ -46,7 +38,7 @@ class ProfileFragment : Fragment() {
 			activity!!.finishAffinity()
 		})
 		viewmodel.changeNameAction.observe(this, Observer {
-			ChangeNameActivity.startForResult(this, RC_CHANGE_NAME)
+			ChangeNameActivity.start(activity!!)
 		})
 	}
 
@@ -67,14 +59,6 @@ class ProfileFragment : Fragment() {
 		toolbar.menu.findItem(R.id.toolbar_log_out).setOnMenuItemClickListener {
 			logOutConfirmation.show()
 			true
-		}
-	}
-
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		if (resultCode == RESULT_OK) {
-			when (requestCode) {
-				RC_CHANGE_NAME -> Snackbar.make(binding.root, data!!.getStringExtra(NEW_NAME_KEY), Snackbar.LENGTH_LONG).show()
-			}
 		}
 	}
 

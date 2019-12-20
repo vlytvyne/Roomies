@@ -1,66 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ui.profile.change_name.ChangeNameActivity">
+	xmlns:tools="http://schemas.android.com/tools">
 
-	<com.google.android.material.appbar.MaterialToolbar
-		android:id="@+id/toolbar"
+	<data>
+		<variable
+			name="viewmodel"
+			type="vl.roomies.ui.profile.change_name.ChangeNameVM" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		android:layout_height="match_parent"
+		tools:context=".ui.profile.change_name.ChangeNameActivity">
 
-	<com.google.android.material.card.MaterialCardView
-		style="@style/AppTheme.SurfaceCard"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-		<androidx.constraintlayout.widget.ConstraintLayout
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id="@+id/toolbar"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
 
-			<com.google.android.material.textfield.TextInputLayout
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="16dp"
-				android:layout_marginEnd="16dp"
-				android:layout_marginBottom="8dp"
-				app:hintEnabled="false"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textView6">
+		<com.google.android.material.card.MaterialCardView
+			style="@style/AppTheme.SurfaceCard"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/etNewName"
-					android:layout_width="match_parent"
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:background="@android:color/transparent"
-					android:padding="8dp" />
-			</com.google.android.material.textfield.TextInputLayout>
+					android:layout_marginStart="16dp"
+					android:layout_marginEnd="16dp"
+					android:layout_marginBottom="8dp"
+					app:hintEnabled="false"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView6">
 
-			<TextView
-				android:id="@+id/textView6"
-				style="@style/AppTheme.Caption"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="16dp"
-				android:layout_marginTop="8dp"
-				android:text="New name"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+					<com.google.android.material.textfield.TextInputEditText
+						android:text="@={viewmodel.newName}"
+						android:enabled="@{viewmodel.isInputEnabled}"
+						android:id="@+id/etNewName"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@android:color/transparent"
+						android:padding="8dp" />
+				</com.google.android.material.textfield.TextInputLayout>
 
-		</androidx.constraintlayout.widget.ConstraintLayout>
+				<TextView
+					android:id="@+id/textView6"
+					style="@style/AppTheme.Caption"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="8dp"
+					android:text="New name"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
 
-	</com.google.android.material.card.MaterialCardView>
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</com.google.android.material.card.MaterialCardView>
+
+		<ProgressBar
+			app:isVisible="@{viewmodel.isLoading}"
+			android:id="@+id/progressBar3"
+			style="?android:attr/progressBarStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="32dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -51,6 +51,7 @@
                 app:hintEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:enabled="@{viewmodel.isInputEnabled}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#56948D8D"
@@ -71,6 +72,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:enabled="@{viewmodel.isInputEnabled}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#56948D8D"

@@ -9,6 +9,8 @@
 
 	<string name="btn_sign_up">Sign up</string>
 	<string name="btn_log_in">Log in</string>
+	<string name="btn_log_out">Log out</string>
+	<string name="btn_cancel">Cancel</string>
 
 	<string name="error_field_cant_be_blank">Field can\'t be blank</string>
 	<string name="error_too_long">Too long</string>
@@ -17,11 +19,13 @@
 	<string name="error_email_already_used">Email already used</string>
 	<string name="error_wrong_password">Wrong password</string>
 	<string name="error_too_many_requests_try_later">Too many request try later</string>
+	<string name="error_unknown">Unknown error</string>
 	<string name="label_purchases">Purchases</string>
 	<string name="label_fridge">Fridge</string>
 	<string name="label_profile">Profile</string>
 	<string name="label_log_out">Log out</string>
 	<string name="btn_save">Save</string>
 	<string name="label_change_name">Change name</string>
+	<string name="confirmation_log_out">Are you sure you want to log out?</string>
 
 </resources>
