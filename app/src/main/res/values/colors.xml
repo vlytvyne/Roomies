@@ -8,4 +8,5 @@
     <color name="purple_500_dark">#6a0080</color>
     <color name="half_transparent_black">#56948D8D</color>
     <color name="light_grey">#D3D3D3</color>
+    <color name="red_400">#ef5350</color>
 </resources>

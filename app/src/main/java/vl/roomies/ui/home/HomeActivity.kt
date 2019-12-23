@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import vl.roomies.R
-import vl.roomies.data.models.User
-import vl.roomies.data.source.FirebaseRepository
-import vl.roomies.data.source.currentUser
+import vl.roomies.ui.fridge.FridgeFragment
 import vl.roomies.ui.profile.ProfileFragment
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -20,7 +18,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 		setContentView(R.layout.activity_home)
 
 		bottomNavigation.setOnNavigationItemSelectedListener(this)
-		bottomNavigation.selectedItemId = R.id.bottom_nav_profile
+		bottomNavigation.selectedItemId = R.id.bottom_nav_fridge
 	}
 
 	override fun onBackPressed() {
@@ -31,7 +29,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 		when (item.itemId) {
 			bottomNavigation.selectedItemId -> Unit
 			R.id.bottom_nav_purchases -> Unit
-			R.id.bottom_nav_fridge -> setFragment(ProfileFragment.newInstance())
+			R.id.bottom_nav_fridge -> setFragment(FridgeFragment.newInstance())
 			R.id.bottom_nav_profile -> setFragment(ProfileFragment.newInstance())
 		}
 		return true
