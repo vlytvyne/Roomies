@@ -11,7 +11,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning">
-		<activity android:name=".ui.profile.change_bank_details.ChangeBankDetailsActivity"></activity>
+		<activity android:name=".ui.fridge.creation.CreateEditStickerActivity"></activity>
+		<activity android:name=".ui.profile.change_bank_details.ChangeBankDetailsActivity" />
 		<activity
 			android:name=".ui.profile.change_name.ChangeNameActivity"
 			android:windowSoftInputMode="stateVisible" />

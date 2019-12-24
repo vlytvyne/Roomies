@@ -12,6 +12,9 @@ import kotlinx.android.synthetic.main.fragment_fridge.*
 import kotlinx.android.synthetic.main.vh_sticker.view.*
 
 import vl.roomies.R
+import vl.roomies.data.models.Sticker
+import vl.roomies.ui.fridge.creation.CreateEditStickerActivity
+import vl.roomies.ui.fridge.creation.Mode
 import vl.roomies.utils.MarginItemDecoration
 
 class FridgeFragment : Fragment() {
@@ -24,6 +27,7 @@ class FridgeFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		setupToolbar()
 		setupRecycler()
+		fabCreateSticker.setOnClickListener { CreateEditStickerActivity.start(activity!!, Mode.STICKER_CREATE) }
 	}
 
 	private fun setupToolbar() {
@@ -32,7 +36,7 @@ class FridgeFragment : Fragment() {
 
 	private fun setupRecycler() {
 		val adapter = StickerAdapter()
-		adapter.dataSet = listOf("First sticker", "Second sticker", "Third sticker")
+		adapter.dataSet = listOf(Sticker("First sticker"), Sticker("Second sticker"), Sticker("Third sticker"))
 		adapter.notifyDataSetChanged()
 		recyclerStickers.layoutManager = LinearLayoutManager(context!!)
 		recyclerStickers.adapter = adapter
@@ -47,16 +51,16 @@ class FridgeFragment : Fragment() {
 	}
 }
 
-class StickerAdapter: DragDropSwipeAdapter<String, StickerAdapter.VH>() {
+class StickerAdapter: DragDropSwipeAdapter<Sticker, StickerAdapter.VH>() {
 
 	class VH(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView)
 
 	override fun getViewHolder(itemView: View) = VH(itemView)
 
-	override fun getViewToTouchToStartDraggingItem(item: String, viewHolder: VH, position: Int) = null
+	override fun getViewToTouchToStartDraggingItem(item: Sticker, viewHolder: VH, position: Int) = null
 
-	override fun onBindViewHolder(item: String, viewHolder: VH, position: Int) {
-		viewHolder.itemView.textStickerText.text = item
+	override fun onBindViewHolder(item: Sticker, viewHolder: VH, position: Int) {
+		viewHolder.itemView.textStickerText.text = item.text
 	}
 
 }

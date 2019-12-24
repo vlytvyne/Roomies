@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+		<variable
+			name="viewmodel"
+			type="vl.roomies.ui.fridge.creation.CreateEditStickerVM" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@android:color/white"
+		tools:context=".ui.fridge.creation.CreateEditStickerActivity">
+
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<EditText
+			android:enabled="@{viewmodel.isInputEnabled}"
+			android:text="@={viewmodel.text}"
+			android:scrollbars="vertical"
+			android:id="@+id/etStickerText"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:gravity="top"
+			android:inputType="textCapSentences|textMultiLine"
+			android:padding="16dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/toolbar"
+			android:importantForAutofill="no" />
+
+		<ProgressBar
+			app:isVisible="@{viewmodel.isLoading}"
+			android:indeterminate="true"
+			android:indeterminateTint="@color/indigo_500"
+			android:id="@+id/progressBar4"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
