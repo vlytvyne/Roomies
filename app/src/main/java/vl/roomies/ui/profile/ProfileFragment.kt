@@ -1,6 +1,8 @@
 package vl.roomies.ui.profile
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +12,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_profile.*
+import timber.log.Timber
 
 import vl.roomies.R
 import vl.roomies.databinding.FragmentProfileBinding
 import vl.roomies.ui.profile.change_bank_details.ChangeBankDetailsActivity
 import vl.roomies.ui.profile.change_name.ChangeNameActivity
+
+private const val RC_CHANGE_NAME = 1
+private const val RC_CHANGE_BANK_DETAILS = 2
 
 class ProfileFragment : Fragment() {
 
@@ -39,10 +45,10 @@ class ProfileFragment : Fragment() {
 			activity!!.finishAffinity()
 		})
 		viewmodel.changeNameAction.observe(this, Observer {
-			ChangeNameActivity.start(activity!!)
+			ChangeNameActivity.startForResult(this, RC_CHANGE_NAME)
 		})
 		viewmodel.changeBankDetailsAction.observe(this, Observer {
-			ChangeBankDetailsActivity.start(activity!!)
+			ChangeBankDetailsActivity.startForResult(this, RC_CHANGE_BANK_DETAILS)
 		})
 	}
 
@@ -57,17 +63,18 @@ class ProfileFragment : Fragment() {
 		setupToolbar()
 	}
 
-	override fun onResume() {
-		super.onResume()
-		viewmodel.resetInfo()
-	}
-
 	private fun setupToolbar() {
 		toolbar.title = getString(R.string.label_profile)
 		toolbar.inflateMenu(R.menu.log_out)
 		toolbar.menu.findItem(R.id.toolbar_log_out).setOnMenuItemClickListener {
 			logOutConfirmation.show()
 			true
+		}
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (resultCode == RESULT_OK) {
+			viewmodel.refreshInfo()
 		}
 	}
 

@@ -20,6 +20,10 @@ class ProfileVM: BasicVM() {
 	val cardNumber = MutableLiveData<String>()
 	val bankLink = MutableLiveData<String>()
 
+	init {
+		refreshInfo()
+	}
+
 	fun logOut() {
 		FirebaseRepository.logOut()
 		closeWindow()
@@ -33,7 +37,7 @@ class ProfileVM: BasicVM() {
 		changeBankDetailsAction.fire()
 	}
 
-	fun resetInfo() {
+	fun refreshInfo() {
 		name.value = currentUser.name
 		email.value = currentUser.email
 		cardNumber.value = currentUser.cardNumber ?: appContext.getString(R.string.placeholder_not_set)

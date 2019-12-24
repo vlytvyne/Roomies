@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_create_edit_sticker.*
@@ -46,6 +47,7 @@ class CreateEditStickerActivity : AppCompatActivity() {
 
 	private fun setupVMObservers() {
 		viewmodel.closeWindow.observe(this, Observer {
+			setResult(Activity.RESULT_OK)
 			finish()
 		})
 		viewmodel.snackError.observe(this, Observer {
@@ -83,11 +85,11 @@ class CreateEditStickerActivity : AppCompatActivity() {
 
 	companion object {
 
-		fun start(activity: Activity, mode: Mode, sticker: Sticker? = null) {
-			val intent = Intent(activity, CreateEditStickerActivity::class.java)
+		fun startForResult(fragment: Fragment, mode: Mode, requestCode: Int, sticker: Sticker? = null) {
+			val intent = Intent(fragment.activity!!, CreateEditStickerActivity::class.java)
 			intent.putExtra(STICKER_ACTIVITY_MODE_KEY, mode)
 			intent.putExtra(STICKER_KEY, sticker)
-			activity.startActivity(intent)
+			fragment.startActivityForResult(intent, requestCode)
 		}
 	}
 }

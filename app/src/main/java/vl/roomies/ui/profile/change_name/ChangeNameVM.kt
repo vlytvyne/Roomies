@@ -11,7 +11,7 @@ import vl.roomies.utils.TextInputValidator
 
 class ChangeNameVM: BasicVM() {
 
-	//@2way db
+	//2way db
 	val newName = MutableLiveData<String>(currentUser.name)
 
 	val newNameError = MutableLiveData<@StringRes Int?>()

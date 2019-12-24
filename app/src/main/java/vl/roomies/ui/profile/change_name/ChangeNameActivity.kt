@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_change_name.*
@@ -31,6 +32,7 @@ class ChangeNameActivity : AppCompatActivity() {
 
 	private fun setupVMObservers() {
 		viewmodel.closeWindow.observe(this, Observer {
+			setResult(Activity.RESULT_OK)
 			finish()
 		})
 		viewmodel.snackError.observe(this, Observer {
@@ -51,9 +53,9 @@ class ChangeNameActivity : AppCompatActivity() {
 
 	companion object {
 
-		fun start(activity: Activity) {
-			val intent = Intent(activity, ChangeNameActivity::class.java)
-			activity.startActivity(intent)
+		fun startForResult(fragment: Fragment, requestCode: Int) {
+			val intent = Intent(fragment.activity!!, ChangeNameActivity::class.java)
+			fragment.startActivityForResult(intent, requestCode)
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package vl.roomies.ui.fridge
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
+import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_fridge.*
 import kotlinx.android.synthetic.main.vh_sticker.view.*
@@ -21,6 +24,9 @@ import vl.roomies.data.models.Sticker
 import vl.roomies.ui.fridge.creation.CreateEditStickerActivity
 import vl.roomies.ui.fridge.creation.Mode
 import vl.roomies.utils.MarginItemDecoration
+
+private const val RC_CREATE_STICKER = 1
+private const val RC_EDIT_STICKER = 2
 
 class FridgeFragment : Fragment() {
 
@@ -32,6 +38,18 @@ class FridgeFragment : Fragment() {
 		override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: Sticker): Boolean {
 			viewmodel.deleteSticker(item)
 			return false
+		}
+	}
+
+	private val onListScrollListener = object : OnListScrollListener {
+		override fun onListScrollStateChanged(scrollState: OnListScrollListener.ScrollState) {}
+
+		override fun onListScrolled(scrollDirection: OnListScrollListener.ScrollDirection, distance: Int) {
+			if (scrollDirection == OnListScrollListener.ScrollDirection.DOWN) {
+				fabCreateSticker.hide()
+			} else {
+				fabCreateSticker.show()
+			}
 		}
 	}
 
@@ -61,7 +79,7 @@ class FridgeFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		setupToolbar()
 		setupRecycler()
-		fabCreateSticker.setOnClickListener { CreateEditStickerActivity.start(activity!!, Mode.STICKER_CREATE) }
+		fabCreateSticker.setOnClickListener { CreateEditStickerActivity.startForResult(this, Mode.STICKER_CREATE, RC_CREATE_STICKER) }
 	}
 
 	private fun setupToolbar() {
@@ -71,11 +89,18 @@ class FridgeFragment : Fragment() {
 	private fun setupRecycler() {
 		recyclerStickers.layoutManager = LinearLayoutManager(context!!)
 		recyclerStickers.adapter = adapter
-		adapter.onStickerClick = { CreateEditStickerActivity.start(activity!!, Mode.STICKER_EDIT, it) }
+		adapter.onStickerClick = { CreateEditStickerActivity.startForResult(this, Mode.STICKER_EDIT, RC_EDIT_STICKER, it) }
 		recyclerStickers.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
 		recyclerStickers.orientation!!.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
 		recyclerStickers.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerStickers.swipeListener = onItemSwipeListener
+		recyclerStickers.scrollListener = onListScrollListener
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (resultCode == RESULT_OK) {
+			viewmodel.refreshStickers()
+		}
 	}
 
 	companion object {

@@ -12,10 +12,10 @@ class FridgeVM: BasicVM() {
 	val setStickersAction = MutableActionLiveData<List<Sticker>>()
 
 	init {
-		fetchStickers()
+		refreshStickers()
 	}
 
-	private fun fetchStickers() {
+	fun refreshStickers() {
 		startLoading()
 
 		FirebaseRepository.getAllStickers()

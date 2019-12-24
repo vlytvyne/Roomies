@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_change_bank_details.*
 import vl.roomies.R
@@ -33,6 +34,7 @@ class ChangeBankDetailsActivity : AppCompatActivity() {
 
 	private fun setupVMObservers() {
 		viewmodel.closeWindow.observe(this, Observer {
+			setResult(Activity.RESULT_OK)
 			finish()
 		})
 	}
@@ -59,9 +61,9 @@ class ChangeBankDetailsActivity : AppCompatActivity() {
 
 	companion object {
 
-		fun start(activity: Activity) {
-			val intent = Intent(activity, ChangeBankDetailsActivity::class.java)
-			activity.startActivity(intent)
+		fun startForResult(fragment: Fragment, requestCode: Int) {
+			val intent = Intent(fragment.activity!!, ChangeBankDetailsActivity::class.java)
+			fragment.startActivityForResult(intent, requestCode)
 		}
 	}
 }
