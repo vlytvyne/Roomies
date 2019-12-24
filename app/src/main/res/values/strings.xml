@@ -10,6 +10,7 @@
 	<string name="label_log_out">Log out</string>
 	<string name="label_change_name">Change name</string>
 	<string name="label_create_sticker">Create sticker</string>
+	<string name="label_edit_sticker">Edit sticker</string>
 
 	<string name="hint_email">Email</string>
 	<string name="hint_password">Password</string>

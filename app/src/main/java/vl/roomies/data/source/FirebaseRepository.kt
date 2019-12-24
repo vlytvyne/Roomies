@@ -39,4 +39,10 @@ object FirebaseRepository {
 
 	fun getAllStickers() =
 		stickersCollection.get()
+
+	fun deleteSticker(sticker: Sticker) =
+		stickersCollection.document(sticker.id!!).delete()
+
+	fun editSticker(sticker: Sticker) =
+		stickersCollection.document(sticker.id!!).set(sticker)
 }

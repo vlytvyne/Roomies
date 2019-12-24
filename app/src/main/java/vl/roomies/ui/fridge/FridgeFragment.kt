@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SnapHelper
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_fridge.*
 import kotlinx.android.synthetic.main.vh_sticker.view.*
@@ -19,16 +19,21 @@ import kotlinx.android.synthetic.main.vh_sticker.view.*
 import vl.roomies.R
 import vl.roomies.data.models.Sticker
 import vl.roomies.ui.fridge.creation.CreateEditStickerActivity
-import vl.roomies.ui.fridge.creation.FridgeVM
 import vl.roomies.ui.fridge.creation.Mode
 import vl.roomies.utils.MarginItemDecoration
-import vl.roomies.utils.addAll
 
 class FridgeFragment : Fragment() {
 
 	private lateinit var viewmodel: FridgeVM
 
 	private val adapter = StickerAdapter()
+
+	private val onItemSwipeListener = object : OnItemSwipeListener<Sticker> {
+		override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: Sticker): Boolean {
+			viewmodel.deleteSticker(item)
+			return false
+		}
+	}
 
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
@@ -66,9 +71,11 @@ class FridgeFragment : Fragment() {
 	private fun setupRecycler() {
 		recyclerStickers.layoutManager = LinearLayoutManager(context!!)
 		recyclerStickers.adapter = adapter
+		adapter.onStickerClick = { CreateEditStickerActivity.start(activity!!, Mode.STICKER_EDIT, it) }
 		recyclerStickers.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
 		recyclerStickers.orientation!!.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
 		recyclerStickers.addItemDecoration(MarginItemDecoration(8, 4))
+		recyclerStickers.swipeListener = onItemSwipeListener
 	}
 
 	companion object {
@@ -77,7 +84,9 @@ class FridgeFragment : Fragment() {
 	}
 }
 
-class StickerAdapter: DragDropSwipeAdapter<Sticker, StickerAdapter.VH>() {
+private class StickerAdapter: DragDropSwipeAdapter<Sticker, StickerAdapter.VH>() {
+
+	var onStickerClick: ((Sticker) -> Unit)? = null
 
 	class VH(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView)
 
@@ -87,6 +96,7 @@ class StickerAdapter: DragDropSwipeAdapter<Sticker, StickerAdapter.VH>() {
 
 	override fun onBindViewHolder(item: Sticker, viewHolder: VH, position: Int) {
 		viewHolder.itemView.textStickerText.text = item.text
+		viewHolder.itemView.setOnClickListener { onStickerClick?.invoke(item) }
 	}
 
 }

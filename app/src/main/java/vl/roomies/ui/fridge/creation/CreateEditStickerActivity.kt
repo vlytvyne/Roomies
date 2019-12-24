@@ -35,7 +35,7 @@ class CreateEditStickerActivity : AppCompatActivity() {
 		binding.lifecycleOwner = this
 		viewmodel = CreateEditStickerVM.create(this)
 		if (!isInCreateMode) {
-			viewmodel.setStickerText(intent.getParcelableExtra<Sticker>(STICKER_KEY)!!.text)
+			viewmodel.setSticker(intent.getParcelableExtra(STICKER_KEY)!!)
 		}
 		binding.viewmodel = viewmodel
 
@@ -54,21 +54,30 @@ class CreateEditStickerActivity : AppCompatActivity() {
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.label_create_sticker)
 		toolbar.setNavigationIcon(R.drawable.ic_up_navigation_arrow)
 		toolbar.setNavigationOnClickListener { finish() }
 		if (isInCreateMode) {
-			toolbar.inflateMenu(R.menu.create)
-			toolbar.menu.findItem(R.id.toolbar_create).setOnMenuItemClickListener {
-				viewmodel.onCreateClick()
-				true
-			}
+			setupCreateToolbar()
 		} else {
-			toolbar.inflateMenu(R.menu.save)
-			toolbar.menu.findItem(R.id.toolbar_save).setOnMenuItemClickListener {
-//				viewmodel.onSaveClick()
-				true
-			}
+			setupEditToolbar()
+		}
+	}
+
+	private fun setupCreateToolbar() {
+		toolbar.title = getString(R.string.label_create_sticker)
+		toolbar.inflateMenu(R.menu.create)
+		toolbar.menu.findItem(R.id.toolbar_create).setOnMenuItemClickListener {
+			viewmodel.onCreateClick()
+			true
+		}
+	}
+
+	private fun setupEditToolbar() {
+		toolbar.title = getString(R.string.label_edit_sticker)
+		toolbar.inflateMenu(R.menu.save)
+		toolbar.menu.findItem(R.id.toolbar_save).setOnMenuItemClickListener {
+			viewmodel.onSaveClick()
+			true
 		}
 	}
 

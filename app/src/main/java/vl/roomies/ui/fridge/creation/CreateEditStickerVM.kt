@@ -10,14 +10,17 @@ import vl.roomies.data.source.FirebaseRepository
 class CreateEditStickerVM: BasicVM() {
 
 	//2way db
-	val text = MutableLiveData<String>("")
+	val stickerText = MutableLiveData<String>("")
 
-	fun setStickerText(text: String) {
-		this.text.value = text
+	private lateinit var sticker: Sticker
+
+	fun setSticker(sticker: Sticker) {
+		this.sticker = sticker
+		this.stickerText.value = sticker.text
 	}
 
 	fun onCreateClick() {
-		if (text.value.isNullOrBlank()) {
+		if (stickerText.value.isNullOrBlank()) {
 			showSnackError(R.string.error_field_cant_be_blank)
 		} else {
 			createSticker()
@@ -28,7 +31,7 @@ class CreateEditStickerVM: BasicVM() {
 		startLoading()
 		disableInput()
 
-		FirebaseRepository.createSticker(Sticker(text.value.toString()))
+		FirebaseRepository.createSticker(Sticker(stickerText.value.toString()))
 			.addOnSuccessListener { closeWindow() }
 			.addOnFailureListener { handleCreationError(it) }
 			.addOnCompleteListener {
@@ -39,6 +42,27 @@ class CreateEditStickerVM: BasicVM() {
 
 	private fun handleCreationError(throwable: Throwable) {
 		showSnackError(R.string.error_unknown)
+	}
+
+	fun onSaveClick() {
+		if (stickerText.value.isNullOrBlank()) {
+			showSnackError(R.string.error_field_cant_be_blank)
+		} else {
+			saveEditedSticker()
+		}
+	}
+
+	private fun saveEditedSticker() {
+		startLoading()
+		disableInput()
+
+		FirebaseRepository.editSticker(sticker.apply { text = stickerText.value!! })
+			.addOnSuccessListener { closeWindow() }
+			.addOnFailureListener { handleCreationError(it) }
+			.addOnCompleteListener {
+				stopLoading()
+				enableInput()
+			}
 	}
 
 	companion object {

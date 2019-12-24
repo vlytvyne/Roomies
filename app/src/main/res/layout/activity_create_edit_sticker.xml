@@ -25,7 +25,7 @@
 
 		<EditText
 			android:enabled="@{viewmodel.isInputEnabled}"
-			android:text="@={viewmodel.text}"
+			android:text="@={viewmodel.stickerText}"
 			android:scrollbars="vertical"
 			android:id="@+id/etStickerText"
 			android:layout_width="match_parent"
