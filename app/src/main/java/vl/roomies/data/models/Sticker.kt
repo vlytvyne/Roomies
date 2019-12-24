@@ -4,4 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Sticker(var text: String): Parcelable
+data class Sticker(var text: String): Parcelable {
+
+	constructor(): this("")
+}

@@ -36,4 +36,7 @@ object FirebaseRepository {
 
 	fun createSticker(sticker: Sticker) =
 		stickersCollection.add(sticker)
+
+	fun getAllStickers() =
+		stickersCollection.get()
 }

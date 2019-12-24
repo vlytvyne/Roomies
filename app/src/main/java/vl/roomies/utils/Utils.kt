@@ -10,16 +10,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import vl.roomies.app.RoomiesApp.Companion.appContext
 
-@BindingAdapter("errorStrRes")
-fun TextInputLayout.setError(strRes: Int?) {
-	error = if (strRes != null) context.getString(strRes) else null
-}
-
-@BindingAdapter("isVisible")
-fun View.setVisibility(isVisible: Boolean) {
-	visibility = if (isVisible) View.VISIBLE else View.GONE
-}
-
 fun hideKeyboard(activity: Activity) {
 	val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
 	var view = activity.currentFocus
