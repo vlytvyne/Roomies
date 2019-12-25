@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_fridge.*
 import kotlinx.android.synthetic.main.vh_sticker.view.*
@@ -50,9 +52,25 @@ class FridgeFragment : Fragment() {
 			.apply { animationMode = Snackbar.ANIMATION_MODE_SLIDE }
 	}
 
+	private val snackUndoDelete: Snackbar by lazy {
+		Snackbar.make(toolbar, R.string.hint_sticker_is_deleted, Snackbar.LENGTH_LONG)
+			.setAction(R.string.btn_undo) { viewmodel.refreshStickers() }
+			.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+				override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+					if (event != DISMISS_EVENT_ACTION) {
+						stickerToDelete?.let { viewmodel.deleteSticker(it) }
+					}
+				}
+			})
+			.apply { animationMode = Snackbar.ANIMATION_MODE_SLIDE }
+	}
+
+	private var stickerToDelete: Sticker? = null
+
 	private val onItemSwipeListener = object : OnItemSwipeListener<Sticker> {
 		override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: Sticker): Boolean {
-			viewmodel.deleteSticker(item)
+			snackUndoDelete.show()
+			stickerToDelete = item
 			return false
 		}
 	}
