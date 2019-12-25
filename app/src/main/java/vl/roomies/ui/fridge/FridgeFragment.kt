@@ -8,16 +8,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_fridge.*
 import kotlinx.android.synthetic.main.vh_sticker.view.*
+import timber.log.Timber
 
 import vl.roomies.R
 import vl.roomies.data.models.Sticker
@@ -34,6 +37,19 @@ class FridgeFragment : Fragment() {
 
 	private val adapter = StickerAdapter()
 
+	private val snackDragHint: Snackbar by lazy {
+		Snackbar.make(toolbar, R.string.hint_drag_sticker_on_top_to_pin_it, Snackbar.LENGTH_INDEFINITE)
+			.apply { animationMode = Snackbar.ANIMATION_MODE_SLIDE }
+	}
+	private val snackStickerPinned: Snackbar by lazy {
+		Snackbar.make(toolbar, R.string.hint_sticker_is_pinned, Snackbar.LENGTH_SHORT)
+			.apply { animationMode = Snackbar.ANIMATION_MODE_SLIDE }
+	}
+	private val snackStickerUnpinned: Snackbar by lazy {
+		Snackbar.make(toolbar, R.string.hint_sticker_is_unpinned, Snackbar.LENGTH_SHORT)
+			.apply { animationMode = Snackbar.ANIMATION_MODE_SLIDE }
+	}
+
 	private val onItemSwipeListener = object : OnItemSwipeListener<Sticker> {
 		override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: Sticker): Boolean {
 			viewmodel.deleteSticker(item)
@@ -49,6 +65,31 @@ class FridgeFragment : Fragment() {
 				fabCreateSticker.hide()
 			} else {
 				fabCreateSticker.show()
+			}
+		}
+	}
+
+	private val onItemDragListener = object : OnItemDragListener<Sticker> {
+		override fun onItemDragged(previousPosition: Int, newPosition: Int, item: Sticker) {
+			snackDragHint.show()
+			if (newPosition == 0) {
+				snackDragHint.setText(R.string.hint_drop_sticker_here_to_pin_it)
+			} else {
+				snackDragHint.setText(R.string.hint_drag_sticker_on_top_to_pin_it)
+			}
+		}
+
+		override fun onItemDropped(initialPosition: Int, finalPosition: Int, item: Sticker) {
+			if (initialPosition == finalPosition) {
+				return
+			}
+			snackDragHint.dismiss()
+			if (finalPosition == 0) {
+				snackStickerPinned.show()
+				viewmodel.pinStickerAtTop(item)
+			} else if (initialPosition == 0) {
+				snackStickerUnpinned.show()
+				viewmodel.unpinStickerAtTop(item)
 			}
 		}
 	}
@@ -95,6 +136,7 @@ class FridgeFragment : Fragment() {
 		recyclerStickers.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerStickers.swipeListener = onItemSwipeListener
 		recyclerStickers.scrollListener = onListScrollListener
+		recyclerStickers.dragListener = onItemDragListener
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

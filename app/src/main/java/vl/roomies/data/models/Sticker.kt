@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Sticker(
 	var text: String,
+	var isPinned: Boolean = false,
 	@DocumentId val id: String? = null): Parcelable {
 
 	constructor(): this("")

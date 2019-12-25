@@ -3,6 +3,7 @@ package vl.roomies.data.source
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import timber.log.Timber
 import vl.roomies.data.models.Sticker
 import vl.roomies.data.models.User
 

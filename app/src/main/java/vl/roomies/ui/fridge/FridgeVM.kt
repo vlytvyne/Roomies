@@ -10,6 +10,7 @@ import vl.roomies.ui.common.MutableActionLiveData
 class FridgeVM: BasicVM() {
 
 	val setStickersAction = MutableActionLiveData<List<Sticker>>()
+	private var pinnedSticker: Sticker? = null
 
 	init {
 		refreshStickers()
@@ -19,7 +20,15 @@ class FridgeVM: BasicVM() {
 		startLoading()
 
 		FirebaseRepository.getAllStickers()
-			.addOnSuccessListener { setStickersAction.fire(it.toObjects(Sticker::class.java)) }
+			.addOnSuccessListener { it ->
+				val stickers = it.toObjects(Sticker::class.java)
+				pinnedSticker = stickers.find { sticker -> sticker.isPinned }
+				if (pinnedSticker != null) {
+					stickers.remove(pinnedSticker)
+					stickers.add(0, pinnedSticker)
+				}
+				setStickersAction.fire(stickers)
+			}
 			.addOnFailureListener { handleFetchStickersError(it) }
 			.addOnCompleteListener { stopLoading() }
 	}
@@ -30,6 +39,16 @@ class FridgeVM: BasicVM() {
 
 	fun deleteSticker(sticker: Sticker) {
 		FirebaseRepository.deleteSticker(sticker)
+	}
+
+	fun pinStickerAtTop(sticker: Sticker) {
+		pinnedSticker?.let { unpinStickerAtTop(it) }
+		FirebaseRepository.editSticker(sticker.apply { isPinned = true })
+		pinnedSticker = sticker
+	}
+
+	fun unpinStickerAtTop(sticker: Sticker) {
+		FirebaseRepository.editSticker(sticker.apply { isPinned = false })
 	}
 
 	companion object {

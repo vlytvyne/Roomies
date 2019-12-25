@@ -43,4 +43,9 @@
 
 	<string name="placeholder_not_set">Not set</string>
 
+	<string name="hint_drag_sticker_on_top_to_pin_it">Drag sticker on top to pin it</string>
+	<string name="hint_drop_sticker_here_to_pin_it">Drop sticker here to pin it</string>
+	<string name="hint_sticker_is_pinned">Sticker is pinned</string>
+	<string name="hint_sticker_is_unpinned">Sticker is unpinned</string>
+
 </resources>
