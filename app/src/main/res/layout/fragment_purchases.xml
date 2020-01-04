@@ -11,36 +11,42 @@
 		android:layout_height="match_parent"
 		tools:context=".ui.fridge.FridgeFragment">
 
-		<com.google.android.material.appbar.MaterialToolbar
-			android:id="@+id/toolbar"
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appBarLayout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@android:color/white"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent">
 
-		<com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
-			app:item_layout="@layout/vh_sticker"
-			app:long_press_to_start_dragging="true"
-			app:behind_swiped_item_custom_layout="@layout/card_swipe_delete_background"
-			android:id="@+id/recyclerStickers"
+			<com.google.android.material.appbar.MaterialToolbar
+				android:elevation="0dp"
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@android:color/white"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<com.google.android.material.tabs.TabLayout
+				android:id="@+id/tabs"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+		</com.google.android.material.appbar.AppBarLayout>
+
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/viewPager"
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-		<ProgressBar
-			android:id="@+id/progressBar"
-			style="?android:attr/progressBarStyle"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+			app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -20,6 +20,7 @@
 		<item name="colorControlHighlight">@color/indigo_500_light</item>
 		<item name="materialAlertDialogTheme">@style/AppTheme.Dialog</item>
 		<item name="actionMenuTextColor">@color/indigo_500</item>
+		<item name="tabStyle">@style/AppTheme.TabLayout</item>
 	</style>
 
 	<style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
@@ -85,6 +86,13 @@
 
 	<style name="AppTheme.SurfaceCard" parent="AppTheme.Card">
 		<item name="cardCornerRadius">0dp</item>
+	</style>
+
+	<style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+		<item name="tabIndicatorColor">@color/purple_500</item>
+		<item name="tabSelectedTextColor">@color/purple_500</item>
+		<item name="tabTextColor">@color/indigo_500_dark</item>
+		<item name="tabRippleColor">@color/purple_500_light</item>
 	</style>
 
 </resources>

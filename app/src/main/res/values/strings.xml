@@ -50,4 +50,10 @@
 	<string name="hint_sticker_is_unpinned">Sticker is unpinned</string>
 	<string name="hint_sticker_is_deleted">Sticker is deleted</string>
 
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+
+	<string name="tab_title_roomies">Roomie\'s</string>
+	<string name="tab_title_yours">Yours</string>
+
 </resources>

@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 		setContentView(R.layout.activity_home)
 
 		bottomNavigation.setOnNavigationItemSelectedListener(this)
-		bottomNavigation.selectedItemId = R.id.bottom_nav_fridge
+		bottomNavigation.selectedItemId = R.id.bottom_nav_purchases
 		setupFragments()
 	}
 
@@ -45,6 +45,9 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 	}
 
 	private fun setFragment(fragment: Fragment) {
+		if (fragment == currentFragment) {
+			return
+		}
 		val fragmentTransaction = supportFragmentManager.beginTransaction()
 		when (fragment) {
 			is ProfileFragment -> fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
