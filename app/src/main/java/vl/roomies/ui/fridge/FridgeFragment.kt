@@ -4,12 +4,10 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,17 +15,16 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
-import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_fridge.*
 import kotlinx.android.synthetic.main.vh_sticker.view.*
-import timber.log.Timber
 
 import vl.roomies.R
 import vl.roomies.data.models.Sticker
 import vl.roomies.ui.fridge.creation.CreateEditStickerActivity
 import vl.roomies.ui.fridge.creation.Mode
+import vl.roomies.utils.HideFabOnScrollListener
 import vl.roomies.utils.MarginItemDecoration
 
 private const val RC_CREATE_STICKER = 1
@@ -72,18 +69,6 @@ class FridgeFragment : Fragment() {
 			snackUndoDelete.show()
 			stickerToDelete = item
 			return false
-		}
-	}
-
-	private val onListScrollListener = object : OnListScrollListener {
-		override fun onListScrollStateChanged(scrollState: OnListScrollListener.ScrollState) {}
-
-		override fun onListScrolled(scrollDirection: OnListScrollListener.ScrollDirection, distance: Int) {
-			if (scrollDirection == OnListScrollListener.ScrollDirection.DOWN) {
-				fabCreateSticker.hide()
-			} else {
-				fabCreateSticker.show()
-			}
 		}
 	}
 
@@ -153,8 +138,8 @@ class FridgeFragment : Fragment() {
 		recyclerStickers.orientation!!.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
 		recyclerStickers.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerStickers.swipeListener = onItemSwipeListener
-		recyclerStickers.scrollListener = onListScrollListener
 		recyclerStickers.dragListener = onItemDragListener
+		recyclerStickers.scrollListener = HideFabOnScrollListener(fabCreateSticker)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
