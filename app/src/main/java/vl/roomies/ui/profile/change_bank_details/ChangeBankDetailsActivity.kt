@@ -1,7 +1,6 @@
 package vl.roomies.ui.profile.change_bank_details
 
 import android.app.Activity
-import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -52,7 +51,7 @@ class ChangeBankDetailsActivity : AppCompatActivity() {
 
 	private fun setupInput() {
 		tilCardNumber.setEndIconOnClickListener {
-			etCardNumber.setText(clipboard.primaryClip?.getItemAt(0)?.text.toString())
+			etTitle.setText(clipboard.primaryClip?.getItemAt(0)?.text.toString())
 		}
 		tilBankLink.setEndIconOnClickListener {
 			etBankLink.setText(clipboard.primaryClip?.getItemAt(0)?.text.toString())

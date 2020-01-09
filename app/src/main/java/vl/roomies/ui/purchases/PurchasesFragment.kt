@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_purchases.*
 
 import vl.roomies.R
 import vl.roomies.data.models.Purchase
+import vl.roomies.ui.purchases.creation.PurchaseCreationActivity
 
 class PurchasesFragment : Fragment() {
 
@@ -25,6 +26,8 @@ class PurchasesFragment : Fragment() {
 
 		viewPager.adapter = PurchasePagerAdapter(activity!!.supportFragmentManager)
 		tabs.setupWithViewPager(viewPager)
+
+		fabCreatePurchase.setOnClickListener { PurchaseCreationActivity.start(activity!!) }
 	}
 
 	private fun setupToolbar() {

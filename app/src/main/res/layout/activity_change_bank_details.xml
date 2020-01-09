@@ -50,7 +50,7 @@
 					app:layout_constraintTop_toTopOf="parent">
 
 					<com.google.android.material.textfield.TextInputEditText
-						android:id="@+id/etCardNumber"
+						android:id="@+id/etTitle"
 						android:text="@={viewmodel.cardNumber}"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"

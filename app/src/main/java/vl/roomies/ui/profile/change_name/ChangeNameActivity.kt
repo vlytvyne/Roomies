@@ -27,7 +27,7 @@ class ChangeNameActivity : AppCompatActivity() {
 
 		setupVMObservers()
 		setupToolbar()
-		etCardNumber.requestFocus()
+		etTitle.requestFocus()
 	}
 
 	private fun setupVMObservers() {

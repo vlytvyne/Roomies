@@ -49,6 +49,16 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 			return
 		}
 		val fragmentTransaction = supportFragmentManager.beginTransaction()
+		if (currentFragment != null) {
+			setAnimationToFragmentTransition(fragment, fragmentTransaction)
+		}
+		currentFragment?.let { fragmentTransaction.hide(it) }
+		fragmentTransaction.show(fragment)
+		fragmentTransaction.commit()
+		currentFragment = fragment
+	}
+
+	private fun setAnimationToFragmentTransition(fragment: Fragment, fragmentTransaction: FragmentTransaction) {
 		when (fragment) {
 			is ProfileFragment -> fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
 			is PurchasesFragment -> fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
@@ -58,10 +68,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 					is ProfileFragment -> fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
 				}
 		}
-		currentFragment?.let { fragmentTransaction.hide(it) }
-		fragmentTransaction.show(fragment)
-		fragmentTransaction.commit()
-		currentFragment = fragment
 	}
 
 	private fun setupFragments() {
