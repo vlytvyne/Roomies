@@ -6,11 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import vl.roomies.data.models.Contributor
 import vl.roomies.data.models.User
 import vl.roomies.databinding.VhPurchaseCreationContributorBinding
+import vl.roomies.utils.CutDigitsAfterDotWatcher
 
 class ContributorAdapter: RecyclerView.Adapter<VH>() {
 
-	var contributors = listOf<Contributor>()
-	var allViewsDisabled = false
+	private var contributors = listOf<Contributor>()
+	private var allViewsDisabled = false
+
+	val chippedInContributors
+		get() = contributors.filter { it.chippedIn }
 
 	fun setUsers(users: List<User>) {
 		contributors = users.map { Contributor(it, true, "0") }
@@ -63,6 +67,7 @@ class VH(private val binding: VhPurchaseCreationContributorBinding): RecyclerVie
 
 	//idk why but OnCheckChangedListener works laggy only after some actions. So I had to do some sex with clickListener
 	fun bind(contributor: Contributor) {
+		binding.etCost.addTextChangedListener(CutDigitsAfterDotWatcher(2))
 		binding.contributor = contributor
 		binding.chbContributorName.setOnClickListener {
 			binding.etCost.isEnabled = binding.chbContributorName.isChecked

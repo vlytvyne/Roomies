@@ -90,10 +90,10 @@
 	</style>
 
 	<style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
-		<item name="tabIndicatorColor">@color/purple_500</item>
-		<item name="tabSelectedTextColor">@color/purple_500</item>
+		<item name="tabIndicatorColor">@android:color/black</item>
+		<item name="tabSelectedTextColor">@android:color/black</item>
 		<item name="tabTextColor">@color/indigo_500</item>
-		<item name="tabRippleColor">@color/purple_500_light</item>
+		<item name="tabRippleColor">@android:color/black</item>
 	</style>
 
 </resources>

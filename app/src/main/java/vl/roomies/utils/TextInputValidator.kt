@@ -6,16 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import vl.roomies.R
 
-open class TextInputValidator(val input: LiveData<String>, val error: MutableLiveData<Int?>): InputValidator {
+open class TextInputValidator(private val input: LiveData<String>, private val error: MutableLiveData<Int?>): InputValidator {
 
-	var isFirstObserverCall = true
+	private var isFirstObserverCall = true
 
 	override var isValid = true
 		get() {
 			isTextInputValid(input.value)
 			return field
 		}
-	protected set
+		protected set
 
 	var minLen: Int? = null
 	@StringRes

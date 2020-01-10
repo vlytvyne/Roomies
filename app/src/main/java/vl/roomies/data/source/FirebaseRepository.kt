@@ -4,11 +4,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
+import vl.roomies.data.models.Purchase
 import vl.roomies.data.models.Sticker
 import vl.roomies.data.models.User
 
 private const val COLL_USERS = "users"
 private const val COLL_STICKERS = "stickers"
+private const val COLL_PURCHASES = "purchases"
 
 object FirebaseRepository {
 
@@ -17,6 +19,7 @@ object FirebaseRepository {
 
 	private val usersCollection = database.collection(COLL_USERS)
 	private val stickersCollection = database.collection(COLL_STICKERS)
+	private val purchasesCollection = database.collection(COLL_PURCHASES)
 
 	fun isUserLoggedIn() = firebaseAuth.currentUser != null
 
@@ -49,4 +52,7 @@ object FirebaseRepository {
 
 	fun getAllUsers() =
 		usersCollection.get()
+
+	fun createPurchase(purchase: Purchase) =
+		purchasesCollection.add(purchase)
 }

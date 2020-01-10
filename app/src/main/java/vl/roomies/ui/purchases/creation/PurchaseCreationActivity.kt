@@ -7,10 +7,12 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_purchase_creation.*
 import vl.roomies.R
 import vl.roomies.databinding.ActivityPurchaseCreationBinding
 import vl.roomies.ui.fridge.creation.ContributorAdapter
+import vl.roomies.utils.CutDigitsAfterDotWatcher
 
 class PurchaseCreationActivity : AppCompatActivity() {
 
@@ -28,11 +30,18 @@ class PurchaseCreationActivity : AppCompatActivity() {
 		setupToolbar()
 		setupRecycler()
 		setupButtons()
+		setupInput()
 	}
 
 	private fun setupVMObservers() {
 		viewmodel.setUsersToContributorsAction.observe(this, Observer {
 			adapter.setUsers(it)
+		})
+		viewmodel.snackError.observe(this, Observer {
+			Snackbar.make(toolbar, it, Snackbar.LENGTH_LONG).show()
+		})
+		viewmodel.closeWindow.observe(this, Observer {
+			finish()
 		})
 	}
 
@@ -41,6 +50,7 @@ class PurchaseCreationActivity : AppCompatActivity() {
 		toolbar.setNavigationIcon(R.drawable.ic_up_navigation_arrow)
 		toolbar.setNavigationOnClickListener { finish() }
 		toolbar.inflateMenu(R.menu.create)
+		toolbar.menu.findItem(R.id.toolbar_create).setOnMenuItemClickListener { viewmodel.onCreateClick(adapter.chippedInContributors); true }
 	}
 
 	private fun setupRecycler() {
@@ -53,16 +63,19 @@ class PurchaseCreationActivity : AppCompatActivity() {
 		btnAddAllToContributors.setOnClickListener { adapter.addAllToContributors() }
 		btnRemoveAllFromContributors.setOnClickListener { adapter.removeAllFromContributors() }
 		switchPayEqually.setOnCheckedChangeListener { switch, checked ->
+			etCost.isEnabled = !checked
+			btnAddAllToContributors.isEnabled = !checked
+			btnRemoveAllFromContributors.isEnabled = !checked
 			if (checked) {
-				btnAddAllToContributors.isEnabled = false
-				btnRemoveAllFromContributors.isEnabled = false
-				adapter.onPayEqually(viewmodel.purchaseCurrentCost)
+				adapter.onPayEqually(viewmodel.purchaseCostDouble)
 			} else {
-				btnAddAllToContributors.isEnabled = true
-				btnRemoveAllFromContributors.isEnabled = true
 				adapter.offPayEqually()
 			}
 		}
+	}
+
+	private fun setupInput() {
+		etCost.addTextChangedListener(CutDigitsAfterDotWatcher(2))
 	}
 
 	companion object {

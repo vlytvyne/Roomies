@@ -6,10 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import vl.roomies.R
 
-class NumberInputValidator(val input: LiveData<String>, val error: MutableLiveData<Int>): InputValidator {
+class NumberInputValidator(private val input: LiveData<String>, private val error: MutableLiveData<Int?>): InputValidator {
+
+	private var isFirstObserverCall = true
 
 	override var isValid = true
-	private set
+		get() {
+			isNumberInputValid(input.value!!)
+			return field
+		}
+		protected set
 
 	var minValue: Double? = null
 	@StringRes var minValueError: Int? = null
@@ -17,14 +23,20 @@ class NumberInputValidator(val input: LiveData<String>, val error: MutableLiveDa
 	var maxValue: Double? = null
 	@StringRes var maxValueError: Int? = null
 
-	private val inputObserver = Observer<String> { isNumberInputValid() }
+	private val inputObserver = Observer<String> {
+		if (!isFirstObserverCall) {
+			isNumberInputValid(it)
+		} else {
+			isFirstObserverCall = false
+		}
+	}
 
-	private fun isNumberInputValid() {
-		if (input.value.isNullOrBlank()) {
+	private fun isNumberInputValid(number: String) {
+		if (number.isNullOrBlank() || !number.first().isDigit()) {
 			setError(R.string.error_field_cant_be_blank)
-		} else if (minValue != null && input.value!!.toDouble() < minValue!!) {
+		} else if (minValue != null && number!!.toDouble() < minValue!!) {
 			setError(minValueError)
-		} else if (maxValue != null && input.value!!.toDouble() > maxValue!!) {
+		} else if (maxValue != null && number!!.toDouble() > maxValue!!) {
 			setError(maxValueError)
 		} else {
 			setError(null)

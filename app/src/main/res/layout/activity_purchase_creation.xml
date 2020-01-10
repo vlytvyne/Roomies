@@ -9,7 +9,7 @@
 			type="vl.roomies.ui.purchases.creation.PurchaseCreationVM" />
 	</data>
 
-	<LinearLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical">
@@ -17,18 +17,29 @@
 		<com.google.android.material.appbar.MaterialToolbar
 			android:id="@+id/toolbar"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content" />
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			/>
 
 		<androidx.core.widget.NestedScrollView
+			android:id="@+id/nestedScrollView"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:fillViewport="true">
+			android:layout_height="0dp"
+			android:fillViewport="true"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/toolbar"
+			>
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:background="@android:color/white"
-				tools:context=".ui.purchases.creation.PurchaseCreationActivity">
+				tools:context=".ui.purchases.creation.PurchaseCreationActivity"
+				>
 
 				<com.google.android.material.textfield.TextInputLayout
 					android:id="@+id/textInputLayout"
@@ -38,22 +49,27 @@
 					android:layout_marginTop="8dp"
 					android:layout_marginEnd="16dp"
 					android:hint="Purchase title"
-					app:endIconMode="clear_text"
-					app:counterMaxLength="@integer/max_purchase_title_length"
 					app:counterEnabled="true"
+					app:counterMaxLength="@integer/max_purchase_title_length"
+					app:endIconMode="clear_text"
+					app:errorEnabled="true"
+					app:errorStrRes="@{viewmodel.titleError}"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/textView6">
+					app:layout_constraintTop_toBottomOf="@+id/textView6"
+					>
 
 					<com.google.android.material.textfield.TextInputEditText
-						android:text="@={viewmodel.title}"
-						android:maxLength="@integer/max_purchase_title_length"
 						android:id="@+id/etTitle"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:inputType="textCapSentences"
+						android:background="@drawable/text_input_background"
+						android:enabled="@{viewmodel.isInputEnabled}"
 						android:imeOptions="actionNext"
-						android:background="@drawable/text_input_background" />
+						android:inputType="textCapSentences"
+						android:maxLength="@integer/max_purchase_title_length"
+						android:text="@={viewmodel.title}"
+						/>
 				</com.google.android.material.textfield.TextInputLayout>
 
 				<com.google.android.material.textfield.TextInputLayout
@@ -66,15 +82,18 @@
 					android:hint="Description"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+					app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+					>
 
 					<com.google.android.material.textfield.TextInputEditText
-						android:text="@={viewmodel.description}"
 						android:id="@+id/etDescription"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:background="@drawable/text_input_background"
-						android:inputType="textCapSentences|textMultiLine" />
+						android:enabled="@{viewmodel.isInputEnabled}"
+						android:inputType="textCapSentences|textMultiLine"
+						android:text="@={viewmodel.description}"
+						/>
 				</com.google.android.material.textfield.TextInputLayout>
 
 				<com.google.android.material.textfield.TextInputLayout
@@ -85,20 +104,26 @@
 					android:layout_marginTop="8dp"
 					android:layout_marginEnd="16dp"
 					android:hint="Cost"
+					app:errorEnabled="true"
+					app:errorIconDrawable="@null"
+					app:errorStrRes="@{viewmodel.costError}"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView11"
-					app:suffixText="₴">
+					app:suffixText="₴"
+					>
 
 					<com.google.android.material.textfield.TextInputEditText
-						android:text="@={viewmodel.cost}"
-						android:maxLength="@integer/max_cost_length"
-						android:imeOptions="actionDone"
 						android:id="@+id/etCost"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:background="@drawable/text_input_background"
-						android:inputType="numberDecimal" />
+						android:enabled="@{viewmodel.isInputEnabled}"
+						android:imeOptions="actionDone"
+						android:inputType="numberDecimal"
+						android:maxLength="@integer/max_cost_length"
+						android:text="@={viewmodel.cost}"
+						/>
 				</com.google.android.material.textfield.TextInputLayout>
 
 				<TextView
@@ -111,7 +136,8 @@
 					android:textColor="@color/indigo_500"
 					android:textSize="16dp"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent" />
+					app:layout_constraintTop_toTopOf="parent"
+					/>
 
 				<TextView
 					android:id="@+id/textView11"
@@ -123,20 +149,23 @@
 					android:textColor="@color/indigo_500"
 					android:textSize="16dp"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+					app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+					/>
 
 				<com.google.android.material.switchmaterial.SwitchMaterial
-					android:checked="false"
 					android:id="@+id/switchPayEqually"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
-					android:layout_marginTop="16dp"
+					android:layout_marginTop="8dp"
 					android:layout_marginEnd="16dp"
+					android:checked="false"
+					android:enabled="@{viewmodel.isInputEnabled}"
 					android:text="Pay equally"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+					app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+					/>
 
 				<TextView
 					android:id="@+id/textView13"
@@ -148,7 +177,8 @@
 					android:textSize="20dp"
 					android:textStyle="bold"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/switchPayEqually" />
+					app:layout_constraintTop_toBottomOf="@+id/switchPayEqually"
+					/>
 
 				<androidx.recyclerview.widget.RecyclerView
 					android:id="@+id/recyclerContributors"
@@ -157,16 +187,19 @@
 					android:layout_marginTop="8dp"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/textView13" />
+					app:layout_constraintTop_toBottomOf="@+id/textView13"
+					/>
 
 				<Button
 					android:id="@+id/btnRemoveAllFromContributors"
 					style="@style/AppTheme.FlatWhiteButton"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:enabled="@{viewmodel.isInputEnabled}"
 					android:text="Remove all"
 					app:layout_constraintStart_toEndOf="@+id/btnAddAllToContributors"
-					app:layout_constraintTop_toTopOf="@+id/btnAddAllToContributors" />
+					app:layout_constraintTop_toTopOf="@+id/btnAddAllToContributors"
+					/>
 
 				<Button
 					android:id="@+id/btnAddAllToContributors"
@@ -175,14 +208,30 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="8dp"
+					android:enabled="@{viewmodel.isInputEnabled}"
 					android:text="Add all"
 					app:layout_constraintEnd_toStartOf="@+id/btnRemoveAllFromContributors"
 					app:layout_constraintHorizontal_bias="0.5"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/recyclerContributors" />
+					app:layout_constraintTop_toBottomOf="@+id/recyclerContributors"
+					/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</androidx.core.widget.NestedScrollView>
 
-	</LinearLayout>
+		<ProgressBar
+			android:id="@+id/progressBar5"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:indeterminate="true"
+			android:indeterminateTint="@color/indigo_500"
+			app:isVisible="@{viewmodel.isLoading}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/toolbar"
+			/>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

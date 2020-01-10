@@ -41,6 +41,8 @@
 	<string name="error_wrong_password">Wrong password</string>
 	<string name="error_too_many_requests_try_later">Too many request try later</string>
 	<string name="error_unknown">Unknown error</string>
+	<string name="error_should_have_at_least_1_contributor">Should have at least one contributor</string>
+	<string name="error_cant_be_0">Can\'t be zero</string>
 
 	<string name="confirmation_log_out">Are you sure you want to log out?</string>
 
