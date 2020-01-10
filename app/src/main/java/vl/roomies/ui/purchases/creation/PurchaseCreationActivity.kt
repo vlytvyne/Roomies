@@ -4,23 +4,36 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
-import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import kotlinx.android.synthetic.main.activity_purchase_creation.*
-import kotlinx.android.synthetic.main.vh_purchase_creation_payer.view.*
 import vl.roomies.R
+import vl.roomies.databinding.ActivityPurchaseCreationBinding
+import vl.roomies.ui.fridge.creation.ContributorAdapter
 
 class PurchaseCreationActivity : AppCompatActivity() {
 
-	private val adapter = PayerAdapter()
+	private lateinit var viewmodel: PurchaseCreationVM
+	private lateinit var binding: ActivityPurchaseCreationBinding
+	private val adapter = ContributorAdapter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_purchase_creation)
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_purchase_creation)
+		binding.lifecycleOwner = this
+		viewmodel = PurchaseCreationVM.create(this)
+		binding.viewmodel = viewmodel
+		setupVMObservers()
 		setupToolbar()
 		setupRecycler()
+		setupButtons()
+	}
+
+	private fun setupVMObservers() {
+		viewmodel.setUsersToContributorsAction.observe(this, Observer {
+			adapter.setUsers(it)
+		})
 	}
 
 	private fun setupToolbar() {
@@ -31,13 +44,25 @@ class PurchaseCreationActivity : AppCompatActivity() {
 	}
 
 	private fun setupRecycler() {
-		recyclerPayers.layoutManager = LinearLayoutManager(this)
-		adapter.dataSet = listOf("You", "Gena", "Denys")
-		recyclerPayers.adapter = adapter
-		recyclerPayers.orientation?.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
-		recyclerPayers.orientation?.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.LEFT)
-		recyclerPayers.orientation?.removeDragDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.UP)
-		recyclerPayers.orientation?.removeDragDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.DOWN)
+		recyclerContributors.layoutManager = LinearLayoutManager(this)
+		recyclerContributors.isNestedScrollingEnabled = false
+		recyclerContributors.adapter = adapter
+	}
+
+	private fun setupButtons() {
+		btnAddAllToContributors.setOnClickListener { adapter.addAllToContributors() }
+		btnRemoveAllFromContributors.setOnClickListener { adapter.removeAllFromContributors() }
+		switchPayEqually.setOnCheckedChangeListener { switch, checked ->
+			if (checked) {
+				btnAddAllToContributors.isEnabled = false
+				btnRemoveAllFromContributors.isEnabled = false
+				adapter.onPayEqually(viewmodel.purchaseCurrentCost)
+			} else {
+				btnAddAllToContributors.isEnabled = true
+				btnRemoveAllFromContributors.isEnabled = true
+				adapter.offPayEqually()
+			}
+		}
 	}
 
 	companion object {
@@ -47,18 +72,4 @@ class PurchaseCreationActivity : AppCompatActivity() {
 			activity.startActivity(intent)
 		}
 	}
-}
-
-private class PayerAdapter: DragDropSwipeAdapter<String, PayerAdapter.VH>() {
-
-	class VH(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView)
-
-	override fun getViewHolder(itemView: View) = VH(itemView)
-
-	override fun getViewToTouchToStartDraggingItem(item: String, viewHolder: VH, position: Int) = null
-
-	override fun onBindViewHolder(item: String, viewHolder: VH, position: Int) {
-		viewHolder.itemView.chbPayerName.text = item
-	}
-
 }

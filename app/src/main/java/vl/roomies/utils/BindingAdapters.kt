@@ -1,7 +1,10 @@
 package vl.roomies.utils
 
 import android.view.View
+import android.widget.Switch
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.google.android.material.textfield.TextInputLayout
 
 @BindingAdapter("errorStrRes")

@@ -19,6 +19,7 @@
 	<string name="hint_card_number">Card Number</string>
 	<string name="hint_bank_app_link">Bank app link</string>
 	<string name="hint_new_name">New name</string>
+	<string name="hint_you">(you)</string>
 
 	<string name="btn_sign_up">Sign up</string>
 	<string name="btn_log_in">Log in</string>

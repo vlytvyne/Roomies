@@ -46,4 +46,7 @@ object FirebaseRepository {
 
 	fun editSticker(sticker: Sticker) =
 		stickersCollection.document(sticker.id!!).set(sticker)
+
+	fun getAllUsers() =
+		usersCollection.get()
 }
