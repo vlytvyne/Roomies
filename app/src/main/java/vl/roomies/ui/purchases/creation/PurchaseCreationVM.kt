@@ -58,9 +58,10 @@ class PurchaseCreationVM: BasicVM() {
 			showSnackError(R.string.error_should_have_at_least_1_contributor)
 			return
 		}
+		contributors.find { it.user.id == currentUser.id }?.let { it.isPaid = true }
 		startLoading()
 		disableInput()
-		FirebaseRepository.createPurchase(Purchase(currentUser, title.value!!, description.value!!, purchaseCostDouble, contributors, Timestamp.now()))
+		FirebaseRepository.createPurchase(Purchase(currentUser, title.value!!, description.value!!, cost.value!!, contributors, Timestamp.now()))
 			.addOnSuccessListener {
 				stopLoading()
 				enableInput()

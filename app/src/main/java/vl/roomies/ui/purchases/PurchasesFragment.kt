@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import kotlinx.android.synthetic.main.fragment_purchases.*
 
 import vl.roomies.R
-import vl.roomies.data.models.Purchase
 import vl.roomies.ui.purchases.creation.PurchaseCreationActivity
+import vl.roomies.ui.purchases.your.YourPurchasesFragment
 
 class PurchasesFragment : Fragment() {
 
@@ -38,19 +37,6 @@ class PurchasesFragment : Fragment() {
 
 		fun newInstance() = PurchasesFragment()
 	}
-}
-
-private class PurchasesAdapter: DragDropSwipeAdapter<Purchase, PurchasesAdapter.VH>() {
-
-	class VH(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView)
-
-	override fun getViewHolder(itemView: View) = VH(itemView)
-
-	override fun getViewToTouchToStartDraggingItem(item: Purchase, viewHolder: VH, position: Int) = null
-
-	override fun onBindViewHolder(item: Purchase, viewHolder: VH, position: Int) {
-	}
-
 }
 
 private class PurchasePagerAdapter(supportFragmentManager: FragmentManager) : FragmentStatePagerAdapter(supportFragmentManager) {

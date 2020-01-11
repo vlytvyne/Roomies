@@ -7,6 +7,7 @@
 		<variable
 			name="contributor"
 			type="vl.roomies.data.models.Contributor" />
+		<import type="vl.roomies.data.source.StaticDataKt"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +26,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:suffixText="₴">
+			app:suffixText="@{StaticDataKt.currencyChar}">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/etCost"

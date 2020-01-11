@@ -9,4 +9,7 @@ data class User(var name: String,
 				@DocumentId val id: String? = null) {
 
 	constructor(): this("", "")
+
+	val userId: String? = null
+		get() = field ?: id
 }

@@ -7,6 +7,7 @@
 		<variable
 			name="viewmodel"
 			type="vl.roomies.ui.purchases.creation.PurchaseCreationVM" />
+		<import type="vl.roomies.data.source.StaticDataKt"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -110,7 +111,7 @@
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/textView11"
-					app:suffixText="₴"
+					app:suffixText="@{StaticDataKt.currencyChar}"
 					>
 
 					<com.google.android.material.textfield.TextInputEditText
