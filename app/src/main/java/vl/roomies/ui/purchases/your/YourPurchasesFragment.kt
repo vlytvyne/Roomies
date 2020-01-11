@@ -24,12 +24,14 @@ import vl.roomies.app.RoomiesApp
 import vl.roomies.data.models.Purchase
 import vl.roomies.databinding.VhYourPurchaseBinding
 import vl.roomies.ui.purchases.creation.PurchaseCreationActivity
+import vl.roomies.ui.purchases.payment_update.PaymentUpdateActivity
 import vl.roomies.utils.HideFabOnScrollListener
 import vl.roomies.utils.MarginItemDecoration
 import vl.roomies.utils.createUndoDeleteSnack
 import vl.roomies.utils.swipeLeftOrientation
 
 const val RC_CREATE_PURCHASE = 1
+const val RC_UPDATE_PAYMENT = 2
 
 class YourPurchasesFragment : Fragment() {
 
@@ -81,7 +83,7 @@ class YourPurchasesFragment : Fragment() {
 	private fun setupRecycler() {
 		recyclerPurchases.layoutManager = LinearLayoutManager(context!!)
 		recyclerPurchases.adapter = adapter
-
+		adapter.onPurchaseClick = { PaymentUpdateActivity.startForResult(this, it, RC_UPDATE_PAYMENT) }
 		recyclerPurchases.orientation = swipeLeftOrientation
 		recyclerPurchases.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerPurchases.swipeListener = onItemSwipeListener
@@ -105,6 +107,8 @@ class YourPurchasesFragment : Fragment() {
 
 private class PurchasesAdapter: DragDropSwipeAdapter<Purchase, PurchasesAdapter.VH>() {
 
+	var onPurchaseClick: ((Purchase) -> Unit)? = null
+
 	class VH(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView)
 
 	override fun getViewHolder(itemView: View) =
@@ -115,6 +119,7 @@ private class PurchasesAdapter: DragDropSwipeAdapter<Purchase, PurchasesAdapter.
 	override fun onBindViewHolder(item: Purchase, viewHolder: VH, position: Int) {
 		val binding = DataBindingUtil.bind<VhYourPurchaseBinding>(viewHolder.itemView)
 		binding!!.purchase = item
+		viewHolder.itemView.setOnClickListener { onPurchaseClick?.invoke(item) }
 	}
 
 }

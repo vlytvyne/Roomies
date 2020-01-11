@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="vl.roomies">
+	package="vl.roomies"
+	>
 
 	<application
 		android:name=".app.RoomiesApp"
@@ -10,18 +11,22 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
-		tools:ignore="GoogleAppIndexingWarning">
-		<activity android:name=".ui.purchases.creation.PurchaseCreationActivity"></activity>
+		tools:ignore="GoogleAppIndexingWarning"
+		>
+		<activity android:name=".ui.purchases.payment_update.PaymentUpdateActivity"></activity>
+		<activity android:name=".ui.purchases.creation.PurchaseCreationActivity" />
 		<activity android:name=".ui.fridge.creation.CreateEditStickerActivity" />
 		<activity android:name=".ui.profile.change_bank_details.ChangeBankDetailsActivity" />
 		<activity
 			android:name=".ui.profile.change_name.ChangeNameActivity"
-			android:windowSoftInputMode="stateVisible" />
+			android:windowSoftInputMode="stateVisible"
+			/>
 		<activity android:name=".ui.home.HomeActivity" />
 		<activity
 			android:name=".ui.splash.SplashActivity"
 			android:noHistory="true"
-			android:theme="@style/AppTheme.TransparentStatusBar">
+			android:theme="@style/AppTheme.TransparentStatusBar"
+			>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
@@ -31,11 +36,13 @@
 		<activity
 			android:name=".ui.sign_up.SignUpActivity"
 			android:theme="@style/AppTheme.TransparentStatusBar"
-			android:windowSoftInputMode="adjustResize" />
+			android:windowSoftInputMode="adjustResize"
+			/>
 		<activity
 			android:name=".ui.log_in.LogInActivity"
 			android:theme="@style/AppTheme.TransparentStatusBar"
-			android:windowSoftInputMode="adjustResize" />
+			android:windowSoftInputMode="adjustResize"
+			/>
 
 		<meta-data
 			android:name="preloaded_fonts"

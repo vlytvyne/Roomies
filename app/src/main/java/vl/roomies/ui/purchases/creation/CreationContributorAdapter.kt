@@ -1,4 +1,4 @@
-package vl.roomies.ui.fridge.creation
+package vl.roomies.ui.purchases.creation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,16 +8,16 @@ import vl.roomies.data.models.User
 import vl.roomies.databinding.VhPurchaseCreationContributorBinding
 import vl.roomies.utils.CutDigitsAfterDotWatcher
 
-class ContributorAdapter: RecyclerView.Adapter<VH>() {
+class CreationContributorAdapter: RecyclerView.Adapter<VH>() {
 
 	private var contributors = listOf<Contributor>()
 	private var allViewsDisabled = false
 
-	val chippedInContributors
+	val chippedInContributors: List<Contributor>
 		get() = contributors.filter { it.chippedIn }
 
 	fun setUsers(users: List<User>) {
-		contributors = users.map { Contributor(it, true, "0") }
+		contributors = users.map { Contributor(it.name, it.documentId!!, true, "0") }
 		notifyDataSetChanged()
 	}
 
@@ -48,10 +48,10 @@ class ContributorAdapter: RecyclerView.Adapter<VH>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
 		val inflater = LayoutInflater.from(parent.context)
-		return VH(VhPurchaseCreationContributorBinding.inflate(inflater, parent, false))
+		return VH(
+			VhPurchaseCreationContributorBinding.inflate(inflater, parent, false)
+		)
 	}
-
-	override fun getItemCount(): Int = contributors.size
 
 	override fun onBindViewHolder(holder: VH, position: Int) {
 		holder.bind(contributors[position])
@@ -61,6 +61,8 @@ class ContributorAdapter: RecyclerView.Adapter<VH>() {
 			holder.enableAllViews()
 		}
 	}
+
+	override fun getItemCount(): Int = contributors.size
 }
 
 class VH(private val binding: VhPurchaseCreationContributorBinding): RecyclerView.ViewHolder(binding.root) {

@@ -12,14 +12,13 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_purchase_creation.*
 import vl.roomies.R
 import vl.roomies.databinding.ActivityPurchaseCreationBinding
-import vl.roomies.ui.fridge.creation.ContributorAdapter
 import vl.roomies.utils.CutDigitsAfterDotWatcher
 
 class PurchaseCreationActivity : AppCompatActivity() {
 
 	private lateinit var viewmodel: PurchaseCreationVM
 	private lateinit var binding: ActivityPurchaseCreationBinding
-	private val adapter = ContributorAdapter()
+	private val adapter = CreationContributorAdapter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -64,7 +63,7 @@ class PurchaseCreationActivity : AppCompatActivity() {
 	private fun setupButtons() {
 		btnAddAllToContributors.setOnClickListener { adapter.addAllToContributors() }
 		btnRemoveAllFromContributors.setOnClickListener { adapter.removeAllFromContributors() }
-		switchPayEqually.setOnCheckedChangeListener { switch, checked ->
+		switchPayEqually.setOnCheckedChangeListener { _, checked ->
 			etCost.isEnabled = !checked
 			btnAddAllToContributors.isEnabled = !checked
 			btnRemoveAllFromContributors.isEnabled = !checked

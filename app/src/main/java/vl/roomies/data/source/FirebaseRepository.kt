@@ -1,11 +1,9 @@
 package vl.roomies.data.source
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
-import timber.log.Timber
 import vl.roomies.data.models.Purchase
 import vl.roomies.data.models.Sticker
 import vl.roomies.data.models.User
@@ -47,10 +45,10 @@ object FirebaseRepository {
 		stickersCollection.orderBy("timeCreated", Query.Direction.DESCENDING).get()
 
 	fun deleteSticker(sticker: Sticker) =
-		stickersCollection.document(sticker.id!!).delete()
+		stickersCollection.document(sticker.documentId!!).delete()
 
 	fun editSticker(sticker: Sticker) =
-		stickersCollection.document(sticker.id!!).set(sticker)
+		stickersCollection.document(sticker.documentId!!).set(sticker)
 
 	fun getAllUsers() =
 		usersCollection.get()
@@ -59,10 +57,13 @@ object FirebaseRepository {
 		purchasesCollection.add(purchase)
 
 	fun deletePurchase(purchase: Purchase) =
-		purchasesCollection.document(purchase.id!!).delete()
+		purchasesCollection.document(purchase.documentId!!).delete()
+
+	fun editPurchase(purchase: Purchase) =
+		purchasesCollection.document(purchase.documentId!!).set(purchase)
 
 	fun getYourPurchases() =
 		purchasesCollection.orderBy("timeCreated", Query.Direction.DESCENDING)
-			.whereEqualTo(FieldPath.of("buyer", "userId"), currentUser.id)
+			.whereEqualTo("buyerId", currentUser.documentId)
 			.get()
 }

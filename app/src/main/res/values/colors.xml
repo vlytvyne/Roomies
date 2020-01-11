@@ -6,10 +6,11 @@
     <color name="purple_500">#9c27b0</color>
     <color name="purple_500_light">#d05ce3</color>
     <color name="purple_500_dark">#6a0080</color>
-    <color name="half_transparent_black">#56948D8D</color>
-    <color name="light_grey">#D3D3D3</color>
     <color name="red_400">#ef5350</color>
     <color name="green_400">#66bb6a</color>
     <color name="yellow_400">#ffee58</color>
     <color name="deep_orange_200">#ffab91</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_300">#e0e0e0</color>
+    <color name="half_transparent_black">#56948D8D</color>
 </resources>

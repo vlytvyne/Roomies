@@ -86,7 +86,8 @@ class SignUpVM: BasicVM() {
 		}
 	}
 
-	private fun handleAttachNameToUserException(exception: Exception) {
+	private fun handleAttachNameToUserException(throwable: Throwable) {
+		Timber.d(throwable)
 		showSnackError(R.string.error_unknown)
 	}
 

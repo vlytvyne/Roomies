@@ -1,19 +1,26 @@
 package vl.roomies.data.models
 
+import android.os.Parcelable
 import com.google.firebase.firestore.Exclude
+import kotlinx.android.parcel.Parcelize
 import vl.roomies.R
 import vl.roomies.app.RoomiesApp
 import vl.roomies.data.source.currentUser
 
-data class Contributor(val user: User, @get:Exclude var chippedIn: Boolean, var moneyPart: String, var isPaid: Boolean = false) {
+@Parcelize
+data class Contributor(val name: String,
+					   val userId: String,
+					   @get:Exclude var chippedIn: Boolean,
+					   var moneyPart: String,
+					   var isPaid: Boolean = false): Parcelable {
 
-	constructor(): this(currentUser, false, "0.0")
+	constructor(): this("", "", false, "0.0")
 
 	val displayName
 		@Exclude
-		get() = if (user.id != currentUser.id) {
-			user.name
+		get() = if (userId != currentUser.documentId) {
+			name
 		} else {
-			user.name + " " + RoomiesApp.appContext.getString(R.string.hint_you)
+			name + " " + RoomiesApp.appContext.getString(R.string.hint_you)
 		}
 }

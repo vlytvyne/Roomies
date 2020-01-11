@@ -10,7 +10,7 @@ data class Sticker(
 	var text: String,
 	var isPinned: Boolean = false,
 	var timeCreated: Timestamp? = null,
-	@DocumentId val id: String? = null): Parcelable {
+	@DocumentId val documentId: String? = null): Parcelable {
 
 	constructor(): this("")
 }

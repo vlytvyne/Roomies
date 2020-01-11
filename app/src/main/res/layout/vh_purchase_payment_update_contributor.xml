@@ -47,7 +47,7 @@
 			android:layout_marginTop="16dp"
 			android:layout_marginEnd="8dp"
 			android:layout_marginBottom="16dp"
-			android:checked="@={contributor.chippedIn}"
+			android:checked="@={contributor.paid}"
 			android:ellipsize="end"
 			android:paddingLeft="16dp"
 			android:text="@{contributor.displayName}"

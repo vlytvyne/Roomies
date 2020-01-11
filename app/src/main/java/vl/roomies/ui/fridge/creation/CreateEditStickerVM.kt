@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
 import com.google.firebase.Timestamp
+import timber.log.Timber
 import vl.roomies.R
 import vl.roomies.data.models.Sticker
 import vl.roomies.data.source.FirebaseRepository
@@ -42,6 +43,7 @@ class CreateEditStickerVM: BasicVM() {
 	}
 
 	private fun handleCreationError(throwable: Throwable) {
+		Timber.d(throwable)
 		showSnackError(R.string.error_unknown)
 	}
 
@@ -59,12 +61,18 @@ class CreateEditStickerVM: BasicVM() {
 
 		FirebaseRepository.editSticker(sticker.apply { text = stickerText.value!! })
 			.addOnSuccessListener { closeWindow() }
-			.addOnFailureListener { handleCreationError(it) }
+			.addOnFailureListener { handleEditError(it) }
 			.addOnCompleteListener {
 				stopLoading()
 				enableInput()
 			}
 	}
+
+	private fun handleEditError(throwable: Throwable) {
+		Timber.d(throwable)
+		showSnackError(R.string.error_unknown)
+	}
+
 
 	companion object {
 
