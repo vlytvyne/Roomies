@@ -53,15 +53,21 @@ class PurchaseCreationVM: BasicVM() {
 	fun onCreateClick(contributors: List<Contributor>) {
 		if (!validators.isAllValid) {
 			return
-		}
-		if (contributors.size == 0) {
+		} else if (contributors.size == 0) {
 			showSnackError(R.string.error_should_have_at_least_1_contributor)
 			return
+		} else {
+			createPurchase(contributors)
 		}
+	}
+
+	private fun createPurchase(contributors: List<Contributor>) {
 		contributors.find { it.user.id == currentUser.id }?.let { it.isPaid = true }
+
 		startLoading()
 		disableInput()
-		FirebaseRepository.createPurchase(Purchase(currentUser, title.value!!, description.value!!, cost.value!!, contributors, Timestamp.now()))
+		FirebaseRepository.createPurchase(
+			Purchase(currentUser, title.value!!, description.value!!, cost.value!!, contributors, Timestamp.now()))
 			.addOnSuccessListener {
 				stopLoading()
 				enableInput()

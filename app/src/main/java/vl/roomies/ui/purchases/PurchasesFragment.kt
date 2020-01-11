@@ -25,8 +25,6 @@ class PurchasesFragment : Fragment() {
 
 		viewPager.adapter = PurchasePagerAdapter(activity!!.supportFragmentManager)
 		tabs.setupWithViewPager(viewPager)
-
-		fabCreatePurchase.setOnClickListener { PurchaseCreationActivity.start(activity!!) }
 	}
 
 	private fun setupToolbar() {

@@ -12,6 +12,9 @@
 	<string name="label_create_sticker">Create sticker</string>
 	<string name="label_edit_sticker">Edit sticker</string>
 	<string name="label_create_purchase">Create purchase</string>
+	<string name="label_no_description">No description</string>
+	<string name="label_paid">paid</string>
+	<string name="label_not_paid">Not paid</string>
 
 	<string name="hint_email">Email</string>
 	<string name="hint_password">Password</string>
@@ -53,8 +56,19 @@
 	<string name="hint_sticker_is_pinned">Sticker is pinned</string>
 	<string name="hint_sticker_is_unpinned">Sticker is unpinned</string>
 	<string name="hint_sticker_is_deleted">Sticker is deleted</string>
+	<string name="hint_purchase_is_deleted">Purchase is deleted</string>
 
 	<string name="tab_title_roomies">Roomie\'s</string>
 	<string name="tab_title_yours">Yours</string>
+	<string name="label_details">Details</string>
+	<string name="hint_purchase_title">Purchase title</string>
+	<string name="hint_description">Description</string>
+	<string name="label_payment">Payment</string>
+	<string name="hint_cost">Cost</string>
+	<string name="btn_pay_equally">Pay equally</string>
+	<string name="label_who_chip_in">Who chip in?</string>
+	<string name="btn_remove_all">Remove all</string>
+	<string name="btn_add_all">Add all</string>
+	<string name="label_contributor_s">Contributor(s)</string>
 
 </resources>

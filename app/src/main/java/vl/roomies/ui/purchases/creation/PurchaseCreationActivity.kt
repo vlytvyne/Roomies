@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -41,6 +42,7 @@ class PurchaseCreationActivity : AppCompatActivity() {
 			Snackbar.make(toolbar, it, Snackbar.LENGTH_LONG).show()
 		})
 		viewmodel.closeWindow.observe(this, Observer {
+			setResult(Activity.RESULT_OK)
 			finish()
 		})
 	}
@@ -80,9 +82,9 @@ class PurchaseCreationActivity : AppCompatActivity() {
 
 	companion object {
 
-		fun start(activity: Activity) {
-			val intent = Intent(activity, PurchaseCreationActivity::class.java)
-			activity.startActivity(intent)
+		fun startForResultCreate(fragment: Fragment, requestCode: Int) {
+			val intent = Intent(fragment.activity, PurchaseCreationActivity::class.java)
+			fragment.startActivityForResult(intent, requestCode)
 		}
 	}
 }

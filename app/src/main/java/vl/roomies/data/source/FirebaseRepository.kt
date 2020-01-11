@@ -58,6 +58,9 @@ object FirebaseRepository {
 	fun createPurchase(purchase: Purchase) =
 		purchasesCollection.add(purchase)
 
+	fun deletePurchase(purchase: Purchase) =
+		purchasesCollection.document(purchase.id!!).delete()
+
 	fun getYourPurchases() =
 		purchasesCollection.orderBy("timeCreated", Query.Direction.DESCENDING)
 			.whereEqualTo(FieldPath.of("buyer", "userId"), currentUser.id)

@@ -28,6 +28,10 @@ class YourPurchasesVM: BasicVM() {
 		Timber.d(throwable)
 	}
 
+	fun deletePurchase(purchase: Purchase) {
+		FirebaseRepository.deletePurchase(purchase)
+	}
+
 	companion object {
 
 		fun create(fragment: YourPurchasesFragment) =

@@ -85,9 +85,15 @@ class CreateEditStickerActivity : AppCompatActivity() {
 
 	companion object {
 
-		fun startForResult(fragment: Fragment, mode: Mode, requestCode: Int, sticker: Sticker? = null) {
+		fun startForResultCreate(fragment: Fragment, requestCode: Int) {
 			val intent = Intent(fragment.activity!!, CreateEditStickerActivity::class.java)
-			intent.putExtra(STICKER_ACTIVITY_MODE_KEY, mode)
+			intent.putExtra(STICKER_ACTIVITY_MODE_KEY, Mode.STICKER_CREATE)
+			fragment.startActivityForResult(intent, requestCode)
+		}
+
+		fun startForResultEdit(fragment: Fragment, requestCode: Int, sticker: Sticker) {
+			val intent = Intent(fragment.activity!!, CreateEditStickerActivity::class.java)
+			intent.putExtra(STICKER_ACTIVITY_MODE_KEY, Mode.STICKER_EDIT)
 			intent.putExtra(STICKER_KEY, sticker)
 			fragment.startActivityForResult(intent, requestCode)
 		}

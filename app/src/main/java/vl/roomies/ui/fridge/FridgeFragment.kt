@@ -123,7 +123,7 @@ class FridgeFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		setupToolbar()
 		setupRecycler()
-		fabCreateSticker.setOnClickListener { CreateEditStickerActivity.startForResult(this, Mode.STICKER_CREATE, RC_CREATE_STICKER) }
+		fabCreateSticker.setOnClickListener { CreateEditStickerActivity.startForResultCreate(this, RC_CREATE_STICKER) }
 	}
 
 	private fun setupToolbar() {
@@ -133,9 +133,10 @@ class FridgeFragment : Fragment() {
 	private fun setupRecycler() {
 		recyclerStickers.layoutManager = LinearLayoutManager(context!!)
 		recyclerStickers.adapter = adapter
-		adapter.onStickerClick = { CreateEditStickerActivity.startForResult(this, Mode.STICKER_EDIT, RC_EDIT_STICKER, it) }
-		recyclerStickers.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-		recyclerStickers.orientation!!.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
+		adapter.onStickerClick = { CreateEditStickerActivity.startForResultEdit(this, RC_EDIT_STICKER, it) }
+		val orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+		orientation.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
+		recyclerStickers.orientation = orientation
 		recyclerStickers.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerStickers.swipeListener = onItemSwipeListener
 		recyclerStickers.dragListener = onItemDragListener
