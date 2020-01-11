@@ -2,6 +2,7 @@ package vl.roomies.data.source
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
 import vl.roomies.data.models.Purchase
@@ -42,7 +43,7 @@ object FirebaseRepository {
 		stickersCollection.add(sticker)
 
 	fun getAllStickers() =
-		stickersCollection.get()
+		stickersCollection.orderBy("timeCreated", Query.Direction.DESCENDING).get()
 
 	fun deleteSticker(sticker: Sticker) =
 		stickersCollection.document(sticker.id!!).delete()

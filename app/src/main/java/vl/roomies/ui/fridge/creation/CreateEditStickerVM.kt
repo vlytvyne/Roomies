@@ -3,6 +3,7 @@ package vl.roomies.ui.fridge.creation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
+import com.google.firebase.Timestamp
 import vl.roomies.R
 import vl.roomies.data.models.Sticker
 import vl.roomies.data.source.FirebaseRepository
@@ -31,7 +32,7 @@ class CreateEditStickerVM: BasicVM() {
 		startLoading()
 		disableInput()
 
-		FirebaseRepository.createSticker(Sticker(stickerText.value.toString()))
+		FirebaseRepository.createSticker(Sticker(stickerText.value.toString(), timeCreated = Timestamp.now()))
 			.addOnSuccessListener { closeWindow() }
 			.addOnFailureListener { handleCreationError(it) }
 			.addOnCompleteListener {

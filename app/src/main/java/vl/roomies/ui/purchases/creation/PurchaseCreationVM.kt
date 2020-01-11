@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
+import com.google.firebase.Timestamp
 import timber.log.Timber
 import vl.roomies.R
 import vl.roomies.data.models.Contributor
@@ -59,7 +60,7 @@ class PurchaseCreationVM: BasicVM() {
 		}
 		startLoading()
 		disableInput()
-		FirebaseRepository.createPurchase(Purchase(currentUser, title.value!!, description.value!!, purchaseCostDouble, contributors))
+		FirebaseRepository.createPurchase(Purchase(currentUser, title.value!!, description.value!!, purchaseCostDouble, contributors, Timestamp.now()))
 			.addOnSuccessListener {
 				stopLoading()
 				enableInput()
