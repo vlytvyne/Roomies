@@ -1,6 +1,7 @@
 package vl.roomies.data.source
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
@@ -65,5 +66,10 @@ object FirebaseRepository {
 	fun getYourPurchases() =
 		purchasesCollection.orderBy("timeCreated", Query.Direction.DESCENDING)
 			.whereEqualTo("buyerId", currentUser.documentId)
+			.get()
+
+	fun getYourContributions() =
+		purchasesCollection.orderBy("timeCreated", Query.Direction.DESCENDING)
+			.whereArrayContains("contributorsId", currentUser.documentId as Any)
 			.get()
 }

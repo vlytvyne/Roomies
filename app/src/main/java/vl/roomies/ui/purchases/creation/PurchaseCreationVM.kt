@@ -64,11 +64,12 @@ class PurchaseCreationVM: BasicVM() {
 	private fun createPurchase(contributors: List<Contributor>) {
 		contributors.find { it.userId == currentUser.documentId }?.let { it.isPaid = true }
 		contributors.forEach { if(it.moneyPart.isBlank() || !it.moneyPart.first().isDigit()) it.moneyPart = "0" }
+		val contributorsId = contributors.map { it.userId }
 
 		startLoading()
 		disableInput()
 		FirebaseRepository.createPurchase(
-			Purchase(currentUser, currentUser.documentId!!, title.value!!, description.value!!, cost.value!!, contributors, Timestamp.now()))
+			Purchase(currentUser, currentUser.documentId!!, title.value!!, description.value!!, cost.value!!, contributors, contributorsId, Timestamp.now()))
 			.addOnSuccessListener {
 				stopLoading()
 				enableInput()

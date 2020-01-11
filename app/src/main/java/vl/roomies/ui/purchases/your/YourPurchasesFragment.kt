@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_your_purchases.*
 
 import vl.roomies.R
 import vl.roomies.app.RoomiesApp
+import vl.roomies.app.RoomiesApp.Companion.appContext
 import vl.roomies.data.models.Purchase
 import vl.roomies.databinding.VhYourPurchaseBinding
 import vl.roomies.ui.purchases.creation.PurchaseCreationActivity
@@ -101,7 +102,7 @@ class YourPurchasesFragment : Fragment() {
 
 		fun newInstance() = YourPurchasesFragment()
 
-		val tabTitle = RoomiesApp.appContext.getString(R.string.tab_title_yours)
+		val tabTitle = appContext.getString(R.string.tab_title_your_purchases)
 	}
 }
 

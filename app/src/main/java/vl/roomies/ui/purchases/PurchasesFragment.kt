@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import kotlinx.android.synthetic.main.fragment_purchases.*
 
 import vl.roomies.R
-import vl.roomies.ui.purchases.creation.PurchaseCreationActivity
+import vl.roomies.ui.purchases.roomies.RoomiesPurchasesFragment
 import vl.roomies.ui.purchases.your.YourPurchasesFragment
 
 class PurchasesFragment : Fragment() {

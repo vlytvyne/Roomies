@@ -52,4 +52,8 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:3.0.0-RC6"
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.5.1'
+
+    implementation "com.xwray:groupie:2.7.0"
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.7.0"
+    implementation "com.xwray:groupie-databinding:2.7.0"
 }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
+
+	<data>
+		<variable
+			name="purchase"
+			type="vl.roomies.data.models.Purchase"
+			/>
+
+		<import type="vl.roomies.data.source.StaticDataKt"/>
+	</data>
+
+	<com.google.android.material.card.MaterialCardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:rippleColor="@color/indigo_500_light"
+		android:clickable="true"
+		>
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			>
+
+			<View
+				android:id="@+id/view2"
+				android:layout_width="wrap_content"
+				android:layout_height="16dp"
+				android:background="@{purchase.isPaidByAll ? @color/green_400 : @color/red_400}"
+				tools:background="@color/red_400"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				/>
+
+			<TextView
+				android:id="@+id/textView12"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@{purchase.isPaidByAll ? @string/label_paid : @string/label_not_paid}"
+				android:textColor="@android:color/white"
+				android:textSize="8dp"
+				app:layout_constraintBottom_toBottomOf="@+id/view2"
+				app:layout_constraintEnd_toEndOf="@+id/view2"
+				app:layout_constraintStart_toStartOf="@+id/view2"
+				app:layout_constraintTop_toTopOf="@+id/view2"
+				/>
+
+			<TextView
+				android:id="@+id/textTitle"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="4dp"
+				android:layout_marginEnd="8dp"
+				android:text="@{purchase.title}"
+				android:textSize="18dp"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toStartOf="@+id/textCost"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/view2"
+				tools:text="title"
+				/>
+
+			<TextView
+				android:id="@+id/textCost"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="8dp"
+				android:text="@{purchase.cost + StaticDataKt.currencyChar}"
+				android:textColor="@color/indigo_500"
+				android:textSize="18dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/textTitle"
+				tools:text="30$"
+				/>
+
+			<TextView
+				android:id="@+id/textDescription"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="2dp"
+				android:layout_marginEnd="8dp"
+				android:text="@{purchase.displayDescription}"
+				android:textColor="@color/grey_600"
+				android:textSize="12dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/textTitle"
+				tools:text="Description"
+				/>
+
+			<TextView
+				android:id="@+id/textContributors"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="4dp"
+				android:layout_marginBottom="8dp"
+				android:text="@{String.valueOf(purchase.contributors.size())}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/textDescription"
+				tools:text="2"
+				/>
+
+			<TextView
+				android:id="@+id/textView14"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="4dp"
+				android:text="@string/label_contributor_s"
+				app:layout_constraintBottom_toBottomOf="@+id/textContributors"
+				app:layout_constraintStart_toEndOf="@+id/textContributors"
+				app:layout_constraintTop_toTopOf="@+id/textContributors"
+				/>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</com.google.android.material.card.MaterialCardView>
+</layout>

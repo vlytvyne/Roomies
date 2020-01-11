@@ -59,14 +59,14 @@
 	<string name="hint_sticker_is_deleted">Sticker is deleted</string>
 	<string name="hint_purchase_is_deleted">Purchase is deleted</string>
 
-	<string name="tab_title_roomies">Roomie\'s</string>
-	<string name="tab_title_yours">Yours</string>
+	<string name="tab_title_your_contributions">Contributions</string>
+	<string name="tab_title_your_purchases">Purchases</string>
 	<string name="label_details">Details</string>
 	<string name="hint_purchase_title">Purchase title</string>
 	<string name="hint_description">Description</string>
 	<string name="label_payment">Payment</string>
 	<string name="hint_cost">Cost</string>
-	<string name="btn_pay_equally">Pay equally</string>
+	<string name="btn_pay_equally">Share the payment equally</string>
 	<string name="label_who_chip_in">Who chip in?</string>
 	<string name="btn_remove_all">Remove all</string>
 	<string name="btn_add_all">Add all</string>

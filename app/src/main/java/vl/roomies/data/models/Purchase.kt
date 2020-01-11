@@ -16,10 +16,11 @@ data class Purchase(var buyer: User,
 					var description: String,
 					var cost: String,
 					var contributors: List<Contributor>,
+					var contributorsId: List<String>,
 					var timeCreated: Timestamp,
 					@DocumentId val documentId: String? = null): Parcelable {
 
-	constructor(): this(currentUser, "","", "", "0", listOf(), Timestamp.now())
+	constructor(): this(currentUser, "","", "", "0", listOf(), listOf(), Timestamp.now())
 
 	val isPaidByAll
 		@Exclude
