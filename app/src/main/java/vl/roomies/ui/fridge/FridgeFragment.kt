@@ -26,6 +26,8 @@ import vl.roomies.ui.fridge.creation.CreateEditStickerActivity
 import vl.roomies.ui.fridge.creation.Mode
 import vl.roomies.utils.HideFabOnScrollListener
 import vl.roomies.utils.MarginItemDecoration
+import vl.roomies.utils.createUndoDeleteSnack
+import vl.roomies.utils.swipeLeftDragUpDownOrientation
 
 private const val RC_CREATE_STICKER = 1
 private const val RC_EDIT_STICKER = 2
@@ -50,16 +52,9 @@ class FridgeFragment : Fragment() {
 	}
 
 	private val snackUndoDelete: Snackbar by lazy {
-		Snackbar.make(toolbar, R.string.hint_sticker_is_deleted, Snackbar.LENGTH_LONG)
-			.setAction(R.string.btn_undo) { viewmodel.refreshStickers() }
-			.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-				override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-					if (event != DISMISS_EVENT_ACTION) {
-						stickerToDelete?.let { viewmodel.deleteSticker(it) }
-					}
-				}
-			})
-			.apply { animationMode = Snackbar.ANIMATION_MODE_SLIDE }
+		createUndoDeleteSnack(toolbar, R.string.hint_sticker_is_deleted,
+			{ viewmodel.refreshStickers() },
+			{ stickerToDelete?.let { viewmodel.deleteSticker(it) } })
 	}
 
 	private var stickerToDelete: Sticker? = null
@@ -134,9 +129,7 @@ class FridgeFragment : Fragment() {
 		recyclerStickers.layoutManager = LinearLayoutManager(context!!)
 		recyclerStickers.adapter = adapter
 		adapter.onStickerClick = { CreateEditStickerActivity.startForResultEdit(this, RC_EDIT_STICKER, it) }
-		val orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-		orientation.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
-		recyclerStickers.orientation = orientation
+		recyclerStickers.orientation = swipeLeftDragUpDownOrientation
 		recyclerStickers.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerStickers.swipeListener = onItemSwipeListener
 		recyclerStickers.dragListener = onItemDragListener

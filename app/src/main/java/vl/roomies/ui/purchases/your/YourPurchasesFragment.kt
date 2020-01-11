@@ -26,6 +26,8 @@ import vl.roomies.databinding.VhYourPurchaseBinding
 import vl.roomies.ui.purchases.creation.PurchaseCreationActivity
 import vl.roomies.utils.HideFabOnScrollListener
 import vl.roomies.utils.MarginItemDecoration
+import vl.roomies.utils.createUndoDeleteSnack
+import vl.roomies.utils.swipeLeftOrientation
 
 const val RC_CREATE_PURCHASE = 1
 
@@ -36,16 +38,9 @@ class YourPurchasesFragment : Fragment() {
 	private val adapter = PurchasesAdapter()
 
 	private val snackUndoDelete: Snackbar by lazy {
-		Snackbar.make(fabCreatePurchase, R.string.hint_purchase_is_deleted, Snackbar.LENGTH_LONG)
-			.setAction(R.string.btn_undo) { viewmodel.refreshPurchases() }
-			.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-				override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-					if (event != DISMISS_EVENT_ACTION) {
-						purchaseToDelete?.let { viewmodel.deletePurchase(it) }
-					}
-				}
-			})
-			.apply { animationMode = Snackbar.ANIMATION_MODE_SLIDE }
+		createUndoDeleteSnack(fabCreatePurchase, R.string.hint_purchase_is_deleted,
+			{ viewmodel.refreshPurchases() },
+			{ purchaseToDelete?.let { viewmodel.deletePurchase(it) } })
 	}
 
 	private var purchaseToDelete: Purchase? = null
@@ -87,14 +82,7 @@ class YourPurchasesFragment : Fragment() {
 		recyclerPurchases.layoutManager = LinearLayoutManager(context!!)
 		recyclerPurchases.adapter = adapter
 
-		//Library has a bug which is why I had to do the following. An issue is here: https://github.com/ernestoyaquello/DragDropSwipeRecyclerview/issues/38
-		val orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_UNCONSTRAINED_DRAGGING
-		orientation.removeSwipeDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
-		orientation.removeDragDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.UP)
-		orientation.removeDragDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.DOWN)
-		orientation.removeDragDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
-		orientation.removeDragDirectionFlag(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.LEFT)
-		recyclerPurchases.orientation = orientation
+		recyclerPurchases.orientation = swipeLeftOrientation
 		recyclerPurchases.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerPurchases.swipeListener = onItemSwipeListener
 		recyclerPurchases.scrollListener = HideFabOnScrollListener(fabCreatePurchase)
