@@ -8,6 +8,7 @@ import kotlinx.android.parcel.Parcelize
 import vl.roomies.R
 import vl.roomies.app.RoomiesApp.Companion.appContext
 import vl.roomies.data.source.currentUser
+import java.math.BigDecimal
 
 @Parcelize
 data class Purchase(var buyer: User,
@@ -29,4 +30,12 @@ data class Purchase(var buyer: User,
 	val displayDescription
 		@Exclude
 		get() = if (description.isBlank()) appContext.getString(R.string.label_no_description) else description
+
+	val myContribution
+		@Exclude
+		get() = contributors.find { it.userId == currentUser.documentId }
+
+	val fomattedCost
+		@Exclude
+		get() = BigDecimal(cost).stripTrailingZeros().toPlainString()
 }

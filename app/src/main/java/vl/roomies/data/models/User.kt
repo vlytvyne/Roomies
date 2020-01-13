@@ -2,7 +2,11 @@ package vl.roomies.data.models
 
 import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.Exclude
 import kotlinx.android.parcel.Parcelize
+import vl.roomies.R
+import vl.roomies.app.RoomiesApp.Companion.appContext
+import vl.roomies.data.source.currentUser
 
 @Parcelize
 data class User(var name: String,
@@ -12,4 +16,8 @@ data class User(var name: String,
 				@DocumentId val documentId: String? = null): Parcelable {
 
 	constructor(): this("", "")
+
+	val displayName
+		@Exclude
+		get() = if (documentId != currentUser.documentId) name else name + " " + appContext.getString(R.string.hint_you)
 }

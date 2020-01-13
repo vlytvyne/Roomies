@@ -16,8 +16,6 @@
 	<com.google.android.material.card.MaterialCardView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		app:rippleColor="@color/indigo_500_light"
-		android:clickable="true"
 		>
 
 		<androidx.constraintlayout.widget.ConstraintLayout
@@ -29,18 +27,18 @@
 				android:id="@+id/view2"
 				android:layout_width="wrap_content"
 				android:layout_height="16dp"
-				android:background="@{purchase.isPaidByAll ? @color/green_400 : @color/red_400}"
-				tools:background="@color/red_400"
+				android:background="@{purchase.myContribution.paid ? @color/green_400 : @color/red_400}"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
+				tools:background="@color/red_400"
 				/>
 
 			<TextView
 				android:id="@+id/textView12"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@{purchase.isPaidByAll ? @string/label_paid : @string/label_not_paid}"
+				android:text="@{purchase.myContribution.paid ? @string/label_paid : @string/label_not_paid}"
 				android:textColor="@android:color/white"
 				android:textSize="8dp"
 				app:layout_constraintBottom_toBottomOf="@+id/view2"
@@ -70,7 +68,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginEnd="8dp"
-				android:text="@{purchase.cost + StaticDataKt.currencyChar}"
+				android:text="@{purchase.myContribution.formattedMoneyPart + '/' + purchase.fomattedCost + StaticDataKt.currencyChar}"
 				android:textColor="@color/indigo_500"
 				android:textSize="18dp"
 				app:layout_constraintEnd_toEndOf="parent"
@@ -83,14 +81,16 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="8dp"
-				android:layout_marginTop="2dp"
+				android:layout_marginTop="4dp"
 				android:layout_marginEnd="8dp"
+				android:layout_marginBottom="8dp"
 				android:text="@{purchase.displayDescription}"
 				android:textColor="@color/grey_600"
 				android:textSize="12dp"
+				app:layout_constraintBottom_toTopOf="@+id/button5"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textTitle"
+				app:layout_constraintTop_toBottomOf="@+id/textContributors"
 				tools:text="Description"
 				/>
 
@@ -100,12 +100,9 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="8dp"
 				android:layout_marginTop="4dp"
-				android:layout_marginBottom="8dp"
-				android:text="@{String.valueOf(purchase.contributors.size())}"
-				app:layout_constraintBottom_toBottomOf="parent"
+				android:text="@string/label_bought_by"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textDescription"
-				tools:text="2"
+				app:layout_constraintTop_toBottomOf="@+id/textTitle"
 				/>
 
 			<TextView
@@ -113,10 +110,33 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="4dp"
-				android:text="@string/label_contributor_s"
+				android:text="@{purchase.buyer.displayName}"
 				app:layout_constraintBottom_toBottomOf="@+id/textContributors"
 				app:layout_constraintStart_toEndOf="@+id/textContributors"
 				app:layout_constraintTop_toTopOf="@+id/textContributors"
+				tools:text="Vadym"
+				/>
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/button5"
+				android:layout_width="0dp"
+				android:layout_height="56dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="8dp"
+				android:backgroundTint="@android:color/black"
+				android:text="Pay"
+				app:isVisible="@{!purchase.myContribution.paid}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				/>
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideline2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.5"
 				/>
 		</androidx.constraintlayout.widget.ConstraintLayout>
 	</com.google.android.material.card.MaterialCardView>

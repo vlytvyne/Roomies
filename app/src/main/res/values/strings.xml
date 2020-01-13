@@ -71,5 +71,6 @@
 	<string name="btn_remove_all">Remove all</string>
 	<string name="btn_add_all">Add all</string>
 	<string name="label_contributor_s">Contributor(s)</string>
+	<string name="label_bought_by">Bought by</string>
 
 </resources>
