@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
+
+	<data>
+		<variable
+			name="purchase"
+			type="vl.roomies.data.models.Purchase"
+			/>
+		<import type="vl.roomies.data.source.StaticDataKt"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@android:color/white"
+		tools:context=".ui.purchases.payment.PaymentActivity"
+		>
+
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			/>
+
+		<androidx.core.widget.NestedScrollView
+			android:fillViewport="true"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/toolbar"
+			>
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				>
+
+				<TextView
+					android:id="@+id/textView15"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="24dp"
+					android:text="You have to pay"
+					android:textSize="20dp"
+					android:textStyle="bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					/>
+
+				<TextView
+					android:id="@+id/textView16"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="8dp"
+					android:text="@{purchase.myContribution.formattedMoneyPart + StaticDataKt.currencyChar}"
+					tools:text="30$"
+					android:textSize="30dp"
+					android:textStyle="bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView15"
+					/>
+
+				<TextView
+					android:id="@+id/textView17"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="24dp"
+					android:text="Payment methods"
+					android:textSize="18dp"
+					android:textStyle="bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView16"
+					/>
+
+				<TextView
+					android:id="@+id/textView18"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="8dp"
+					android:text="Bank app link"
+					android:textColor="@color/indigo_500"
+					android:textSize="16dp"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView17"
+					/>
+
+				<TextView
+					android:background="?selectableItemBackground"
+					android:autoLink="web"
+					android:textColorLink="@color/indigo_500_light"
+					android:id="@+id/textView19"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="8dp"
+					android:text="@{purchase.buyer.displayBankLink}"
+					tools:text="https://github.com/notifications"
+					android:textSize="16dp"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView18"
+					/>
+
+				<TextView
+					android:textSize="16dp"
+					android:id="@+id/textView20"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:text="Card number"
+					android:textColor="@color/indigo_500"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView19"
+					/>
+
+				<TextView
+					android:id="@+id/textView23"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:text="Pay cash"
+					android:textColor="@color/indigo_500"
+					android:textSize="16dp"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textCardNumber"
+					/>
+
+				<TextView
+					android:id="@+id/textCardNumber"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="8dp"
+					android:text="@{purchase.buyer.displayCardNumber}"
+					tools:text="4343 1111 2222 8748"
+					android:textSize="16dp"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView20"
+					/>
+
+				<ImageButton
+					android:id="@+id/btnCopyCardNumber"
+					app:isVisible="@{purchase.buyer.hasCardNumber}"
+					android:layout_width="40dp"
+					android:layout_height="40dp"
+					android:layout_marginStart="16dp"
+					android:background="?attr/selectableItemBackgroundBorderless"
+					app:layout_constraintBottom_toBottomOf="@+id/textCardNumber"
+					app:layout_constraintStart_toEndOf="@+id/textCardNumber"
+					app:layout_constraintTop_toTopOf="@+id/textCardNumber"
+					app:srcCompat="@drawable/ic_copy_paste"
+					/>
+
+				<TextView
+					android:textSize="16dp"
+					android:id="@+id/textView24"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="8dp"
+					android:text="@{purchase.buyer.displayName}"
+					tools:text="Vadym"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView23"
+					/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.core.widget.NestedScrollView>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,4 +1,4 @@
-package vl.roomies.ui.purchases.roomies
+package vl.roomies.ui.purchases.your_contributions
 
 import android.content.Context
 import android.os.Bundle
@@ -18,9 +18,10 @@ import vl.roomies.R
 import vl.roomies.app.RoomiesApp
 import vl.roomies.data.models.Purchase
 import vl.roomies.databinding.VhYourContributionBinding
+import vl.roomies.ui.purchases.payment.PaymentActivity
 import vl.roomies.utils.MarginItemDecoration
 
-class RoomiesPurchasesFragment : Fragment() {
+class YourContributionsFragment : Fragment() {
 
 	private lateinit var viewmodel: YourContributionsVM
 
@@ -34,7 +35,9 @@ class RoomiesPurchasesFragment : Fragment() {
 
 	private fun setupVMObservers() {
 		viewmodel.setPurchasesAction.observe(this, Observer {
-			adapter.addAll(it.map { purchase -> PurchaseItem(purchase) })
+			val items = it.map { purchase -> PurchaseItem(purchase) }
+			items.forEach { it.onPayClick = { purchase ->  PaymentActivity.start(activity!!, purchase) } }
+			adapter.addAll(items)
 		})
 		viewmodel.isLoading.observe(this, Observer {
 			progressBar.isVisible = it
@@ -59,7 +62,7 @@ class RoomiesPurchasesFragment : Fragment() {
 	companion object {
 
 		fun newInstance() =
-			RoomiesPurchasesFragment()
+			YourContributionsFragment()
 
 		val tabTitle = RoomiesApp.appContext.getString(R.string.tab_title_your_contributions)
 	}
@@ -67,10 +70,13 @@ class RoomiesPurchasesFragment : Fragment() {
 
 class PurchaseItem(val purchase: Purchase): BindableItem<VhYourContributionBinding>() {
 
+	var onPayClick: ((Purchase) -> Unit)? = null
+
 	override fun getLayout() = R.layout.vh_your_contribution
 
 	override fun bind(viewBinding: VhYourContributionBinding, position: Int) {
 		viewBinding.purchase = purchase
+		viewBinding.payButton.setOnClickListener { onPayClick?.invoke(purchase) }
 	}
 
 }

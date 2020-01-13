@@ -1,4 +1,4 @@
-package vl.roomies.ui.purchases.your
+package vl.roomies.ui.purchases.your_purchases
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
@@ -13,14 +13,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
-import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_your_purchases.*
 
 import vl.roomies.R
-import vl.roomies.app.RoomiesApp
 import vl.roomies.app.RoomiesApp.Companion.appContext
 import vl.roomies.data.models.Purchase
 import vl.roomies.databinding.VhYourPurchaseBinding

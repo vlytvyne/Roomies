@@ -23,6 +23,7 @@
 	<string name="hint_card_number">Card Number</string>
 	<string name="hint_bank_app_link">Bank app link</string>
 	<string name="hint_new_name">New name</string>
+	<string name="hint_card_number_is_copied">Card number is copied</string>
 	<string name="hint_you">(you)</string>
 
 	<string name="btn_sign_up">Sign up</string>
@@ -34,6 +35,7 @@
 	<string name="btn_bank_app_link">Bank app link</string>
 	<string name="btn_change_bank_details">Change bank details</string>
 	<string name="btn_save">Save</string>
+	<string name="btn_done">Done</string>
 	<string name="btn_create">Create</string>
 	<string name="btn_undo">Undo</string>
 

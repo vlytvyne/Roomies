@@ -13,7 +13,8 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		>
-		<activity android:name=".ui.purchases.payment_update.PaymentUpdateActivity"></activity>
+		<activity android:name=".ui.purchases.payment.PaymentActivity"></activity>
+		<activity android:name=".ui.purchases.payment_update.PaymentUpdateActivity" />
 		<activity android:name=".ui.purchases.creation.PurchaseCreationActivity" />
 		<activity android:name=".ui.fridge.creation.CreateEditStickerActivity" />
 		<activity android:name=".ui.profile.change_bank_details.ChangeBankDetailsActivity" />

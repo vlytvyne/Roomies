@@ -1,4 +1,4 @@
-package vl.roomies.ui.purchases.roomies
+package vl.roomies.ui.purchases.your_contributions
 
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM
@@ -30,7 +30,7 @@ class YourContributionsVM: BasicVM() {
 
 	companion object {
 
-		fun create(fragment: RoomiesPurchasesFragment) =
+		fun create(fragment: YourContributionsFragment) =
 			ViewModelProviders.of(fragment)[YourContributionsVM::class.java]
 	}
 }

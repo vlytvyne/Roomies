@@ -20,4 +20,16 @@ data class User(var name: String,
 	val displayName
 		@Exclude
 		get() = if (documentId != currentUser.documentId) name else name + " " + appContext.getString(R.string.hint_you)
+
+	val displayBankLink
+		@Exclude
+		get() = if (bankLink.isNullOrBlank()) appContext.getString(R.string.placeholder_not_set) else bankLink
+
+	val displayCardNumber
+		@Exclude
+		get() = if (cardNumber.isNullOrBlank()) appContext.getString(R.string.placeholder_not_set) else cardNumber
+
+	val hasCardNumber
+		@Exclude
+		get() = !cardNumber.isNullOrBlank()
 }

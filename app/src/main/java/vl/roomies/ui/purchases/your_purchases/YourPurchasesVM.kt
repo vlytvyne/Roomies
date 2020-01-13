@@ -1,4 +1,4 @@
-package vl.roomies.ui.purchases.your
+package vl.roomies.ui.purchases.your_purchases
 
 import androidx.lifecycle.ViewModelProviders
 import com.floctopus.ui.common.BasicVM

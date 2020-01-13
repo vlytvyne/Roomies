@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import kotlinx.android.synthetic.main.fragment_purchases.*
 
 import vl.roomies.R
-import vl.roomies.ui.purchases.roomies.RoomiesPurchasesFragment
-import vl.roomies.ui.purchases.your.YourPurchasesFragment
+import vl.roomies.ui.purchases.your_contributions.YourContributionsFragment
+import vl.roomies.ui.purchases.your_purchases.YourPurchasesFragment
 
 class PurchasesFragment : Fragment() {
 
@@ -42,13 +42,13 @@ private class PurchasePagerAdapter(supportFragmentManager: FragmentManager) : Fr
 	override fun getItem(position: Int) =
 		when(position) {
 			0 -> YourPurchasesFragment.newInstance()
-			else -> RoomiesPurchasesFragment.newInstance()
+			else -> YourContributionsFragment.newInstance()
 		}
 
 	override fun getPageTitle(position: Int) =
 		when(position) {
 			0 -> YourPurchasesFragment.tabTitle
-			else -> RoomiesPurchasesFragment.tabTitle
+			else -> YourContributionsFragment.tabTitle
 		}
 
 	override fun getCount() = 2
