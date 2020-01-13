@@ -8,14 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
-import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_fridge.*
 import kotlinx.android.synthetic.main.vh_sticker.view.*
@@ -23,7 +21,6 @@ import kotlinx.android.synthetic.main.vh_sticker.view.*
 import vl.roomies.R
 import vl.roomies.data.models.Sticker
 import vl.roomies.ui.fridge.creation.CreateEditStickerActivity
-import vl.roomies.ui.fridge.creation.Mode
 import vl.roomies.utils.HideFabOnScrollListener
 import vl.roomies.utils.MarginItemDecoration
 import vl.roomies.utils.createUndoDeleteSnack
@@ -103,7 +100,7 @@ class FridgeFragment : Fragment() {
 			adapter.dataSet = it
 		})
 		viewmodel.isLoading.observe(this, Observer {
-			progressBar.isVisible = it
+			refreshLayout.isRefreshing = it
 		})
 		viewmodel.snackError.observe(this, Observer {
 			Snackbar.make(toolbar, it, Snackbar.LENGTH_LONG).show()
@@ -118,7 +115,8 @@ class FridgeFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		setupToolbar()
 		setupRecycler()
-		fabCreateSticker.setOnClickListener { CreateEditStickerActivity.startForResultCreate(this, RC_CREATE_STICKER) }
+		setupRefresh()
+		setupButtons()
 	}
 
 	private fun setupToolbar() {
@@ -134,6 +132,15 @@ class FridgeFragment : Fragment() {
 		recyclerStickers.swipeListener = onItemSwipeListener
 		recyclerStickers.dragListener = onItemDragListener
 		recyclerStickers.scrollListener = HideFabOnScrollListener(fabCreateSticker)
+	}
+
+	private fun setupRefresh() {
+		refreshLayout.setOnRefreshListener { viewmodel.refreshStickers() }
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.indigo_500))
+	}
+
+	private fun setupButtons() {
+		fabCreateSticker.setOnClickListener { CreateEditStickerActivity.startForResultCreate(this, RC_CREATE_STICKER) }
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

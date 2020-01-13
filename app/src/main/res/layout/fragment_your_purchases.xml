@@ -11,31 +11,30 @@
 		android:layout_height="match_parent"
 		tools:context=".ui.fridge.FridgeFragment">
 
-		<com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
-			android:id="@+id/recyclerPurchases"
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/refreshLayout"
 			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			app:behind_swiped_item_custom_layout="@layout/card_swipe_delete_background"
-			app:item_layout="@layout/vh_your_purchase"
+			android:layout_height="match_parent"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:long_press_to_start_dragging="true"
-			/>
+			>
 
-		<ProgressBar
-			android:visibility="invisible"
-			tools:visibility="visible"
-			android:id="@+id/progressBar"
-			style="?android:attr/progressBarStyle"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			/>
+			<com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+				android:id="@+id/recyclerPurchases"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				app:behind_swiped_item_custom_layout="@layout/card_swipe_delete_background"
+				app:item_layout="@layout/vh_your_purchase"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:long_press_to_start_dragging="true"
+				/>
+
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 

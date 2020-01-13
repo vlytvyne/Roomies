@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,7 +64,7 @@ class YourPurchasesFragment : Fragment() {
 			adapter.dataSet = it
 		})
 		viewmodel.isLoading.observe(this, Observer {
-			progressBar.isVisible = it
+			refreshLayout.isRefreshing = it
 		})
 	}
 
@@ -75,7 +75,8 @@ class YourPurchasesFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		setupRecycler()
-		fabCreatePurchase.setOnClickListener { PurchaseCreationActivity.startForResultCreate(this, RC_CREATE_PURCHASE) }
+		setupRefresh()
+		setupButtons()
 	}
 
 	private fun setupRecycler() {
@@ -86,6 +87,15 @@ class YourPurchasesFragment : Fragment() {
 		recyclerPurchases.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerPurchases.swipeListener = onItemSwipeListener
 		recyclerPurchases.scrollListener = HideFabOnScrollListener(fabCreatePurchase)
+	}
+
+	private fun setupRefresh() {
+		refreshLayout.setOnRefreshListener { viewmodel.refreshPurchases() }
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.indigo_500))
+	}
+
+	private fun setupButtons() {
+		fabCreatePurchase.setOnClickListener { PurchaseCreationActivity.startForResultCreate(this, RC_CREATE_PURCHASE) }
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

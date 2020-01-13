@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,12 +36,13 @@ class YourContributionsFragment : Fragment() {
 
 	private fun setupVMObservers() {
 		viewmodel.setPurchasesAction.observe(this, Observer {
+			adapter.clear()
 			val items = it.map { purchase -> PurchaseItem(purchase) }
 			items.forEach { it.onPayClick = { purchase ->  PaymentActivity.start(activity!!, purchase) } }
 			adapter.addAll(items)
 		})
 		viewmodel.isLoading.observe(this, Observer {
-			progressBar.isVisible = it
+			refreshLayout.isRefreshing = it
 		})
 	}
 
@@ -51,12 +53,18 @@ class YourContributionsFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		setupRecycler()
+		setupRefresh()
 	}
 
 	private fun setupRecycler() {
 		recyclerPurchases.layoutManager = LinearLayoutManager(context)
 		recyclerPurchases.addItemDecoration(MarginItemDecoration(8, 4))
 		recyclerPurchases.adapter = adapter
+	}
+
+	private fun setupRefresh() {
+		refreshLayout.setOnRefreshListener { viewmodel.refreshPurchases() }
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.indigo_500))
 	}
 
 	companion object {
