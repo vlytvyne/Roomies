@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 		setContentView(R.layout.activity_home)
 
 		bottomNavigation.setOnNavigationItemSelectedListener(this)
-		bottomNavigation.selectedItemId = R.id.bottom_nav_purchases
+		bottomNavigation.selectedItemId = R.id.bottom_nav_fridge
 		setupFragments()
 	}
 
